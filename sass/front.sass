@@ -1,0 +1,144 @@
+@import "_base"
+
+html
+  height: 100%
+
+body
+  font-family: "Inter", Helvetica, Arial, sans-serif
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+
+  > nav
+    background-color: $nav-bg
+    color: white
+    padding: 4pt
+    display: flex
+    align-items: center
+    gap: 0.5rem
+
+    #logo, #logo:visited, #logo:active, #logo:hover
+      text-decoration: none !important
+
+    #logo
+      display: inline-flex
+      img
+        width: 3em
+        height: 3em
+
+    a, a:visited, a:active
+      color: white
+      text-decoration: none
+    a:hover
+      color: $yellow
+      text-decoration: underline
+
+    ol, ul
+      margin: 0
+      padding: 0
+      display: flex
+      list-style: none
+      font-weight: 600
+      flex: 1 0 fit-content
+      li
+        padding: 0
+        margin: 0
+
+    ol
+      gap: 3pt
+
+    ul
+      gap: 1em
+      margin-right: 1em
+      justify-content: flex-end
+
+  > main
+    flex: 1
+
+  > footer
+    padding: 2rem
+    background-color: $footer-bg
+    color: white
+    display: flex
+    align-items: center
+
+    > *:first-child
+      text-align: left
+    > *
+      text-align: center
+    > *:last-child
+      text-align: right
+
+    > p
+      flex: 3 1
+    > div
+      flex: 1 0 fit-content
+      display: flex
+      justify-content: center
+      align-content: center
+      align-items: center
+      a
+        display: block
+        flex: 1 0 fit-content
+
+    p
+      margin: 0
+
+    ul
+      list-style-type: none
+      padding-left: 0
+      margin-top: 0
+
+    li
+      margin-bottom: 1rem
+
+    a
+      color: $yellow
+      text-decoration: none
+      &:hover
+        color: $yellow
+        text-decoration: underline
+
+    h4
+      font-size: 1.2em
+      font-weight: 600
+      margin-top: 0
+      margin-bottom: 2rem
+
+    img
+      width: 2.5em
+
+.nav a
+  color: $gray
+
+#title
+  font-size: 8rem
+  margin-bottom: 0
+  margin-top: 0
+  line-height: 1.2
+  + p
+    font-size: 2rem !important
+  @media screen and (max-width: 60em)
+    font-size: 4rem
+
+.button
+  display: inline-block
+  width: 100%
+  padding: 0.5rem
+  text-align: center
+  font-weight: 600
+  letter-spacing: 0.1rem
+  text-transform: uppercase
+  text-decoration: none
+  border-radius: 4px
+  border: 1px solid
+  cursor: pointer
+  box-sizing: border-box
+  &:hover,
+  &:focus
+    outline: 0
+
+  &.inline
+    width: fit-content
+    font-size: 80%
+    line-height: 1

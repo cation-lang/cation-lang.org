@@ -1,0 +1,113 @@
+$gray: #2a3439
+$code: #2b303b
+$yellow: #ffc832
+$nav-bg: #8d00ff
+$footer-bg: #8d00ff
+$link-color: #4299bf
+
+@media screen and (max-width: 30em)
+  html
+    font-size: 75%
+
+body, html
+  padding: 0
+  margin: 0
+
+table
+  border-spacing: 0
+
+@media screen and (max-width: 60em)
+  article
+    margin-left: 1rem !important
+    margin-right: 1rem !important
+
+article
+  max-width: 60rem
+  margin: 4rem auto
+
+  h1
+    margin: 1em 0
+    padding: 0
+    font-size: 3rem
+    font-weight: 900
+
+    + p
+      font-size: 1.2rem
+      margin-bottom: 2rem
+
+  h2
+    padding: 0
+    font-size: 1.6rem
+    line-height: 1.4
+    font-weight: 200
+
+  p, li
+    line-height: 1.6
+
+article.page
+  > *
+    max-width: 70%
+
+  h2
+    margin: 2em 0 0 0
+
+  aside
+    clear: both
+    font-size: smaller
+    float: right
+    width: 25%
+
+    h2
+      margin-top: 0
+      font-size: 140%
+
+article.contents
+  h2
+    margin: 1rem 0
+
+  hr
+    width: 60%
+    border: none
+    height: 1px
+    background-color: rgba(0,0,0,0.2)
+
+  > ul
+    list-style: none
+    padding: 0
+    margin-bottom: 2rem
+    display: flex
+    flex-wrap: wrap
+    justify-content: left
+    gap: 3rem
+
+    > li
+      flex: 0 1 30%
+      min-width: 15em
+
+      > ul
+        list-style-type: disc
+        padding-left: 1em
+
+        > li
+          padding: 2pt 0
+
+dfn
+  font-weight: 900
+  font-style: normal
+
+pre
+  padding: 1rem
+  box-sizing: border-box
+  font-size: smaller
+  overflow: scroll
+  kbd
+    background-color: inherit
+
+pre, code, kbd
+  font-family: "JetBrains Mono", monospace
+  font-optical-sizing: auto
+
+kbd
+  color: white
+  background-color: $code
+  padding: 0.1em 0.2em

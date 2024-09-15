@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block social_media %}
+<meta name="description" content="{{ page.description }}">
+
+<meta property="og:title" content="{{ page.title }}" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://cation-lang.org/banner.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+<meta property="og:description" content="{{ page.description }}">
+<meta property="og:site_name" content="Cation Language">
+
+<meta name="twitter:site" content="@lnp_bp">
+{% endblock social_media %}
+
+{% block breadcrumbs %}
+    {% set path = "" %}
+    {% set len = page.components | length %}
+    {% for item in page.components | slice(end=len - 1) %}
+        {% set_global path = path ~ "/" ~ item %}
+        <li>/</li>
+        <li><a href='{{ path }}'>{{ item | replace(from="-", to=" ") | title }}</a></li>
+    {% endfor %}
+{% endblock breadcrumbs %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="list">
+    {{ section.content | safe }}
+
+    <section>
+        {% for sub in section.subsections %}
+            {% set section = get_section(path=sub) %}
+            <header>
+                <h2>{{ section.title }}</h2>
+                <p>{{ section.content | safe }}</p>
+            </header>
+            <ul>
+            {% for page in section.pages %}
+                <li><a href="{{page.permalink}}">{{ page.title }}</a></li>
+            {% endfor %}
+            </ul>
+        {% endfor %}
+    </section>
+</article>
+{% endblock content %}
+
+{% block breadcrumbs %}
+    {% set path = "" %}
+    {% set len = section.components | length %}
+    {% for item in section.components | slice(end=len - 1) %}
+        {% set_global path = path ~ "/" ~ item %}
+        <li>/</li>
+        <li><a href='{{ path }}'>{{ item | replace(from="-", to=" ") | title }}</a></li>
+    {% endfor %}
+{% endblock breadcrumbs %}
