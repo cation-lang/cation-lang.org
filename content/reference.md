@@ -9,6 +9,7 @@ template = "page.html"
 - `fx`: defines new function (prefix function)
 - `infx`: defines new infix function
 - `let`: defines new instance of a data type
+- `class`: defines a new type class
 
 ## Build-in operators
 
@@ -22,13 +23,13 @@ Operator `:`
 
 Defines a details of a previous statement.
 
-### Categorical sum
-
-Operator `|`
-
 ### Composition and categorical product
 
 Operator `,`
+
+### Categorical co-product
+
+Operator `|`
 
 ### Decomposition assignment
 
@@ -62,16 +63,24 @@ ranges. They may be combined with a step size information in form of
 
     0<=2x<=100
 
-Where instead of 2 any other constant can be given
+where instead of 2 any other constant can be given
 
 ### Context value
 
 Operator `_` means context default value, like the one kept in a stack from
 a previous function call or a decomposition
 
-### Projection
+### Result value
 
-Operators `->` `<-` define functors: they do project each of the members of
+Operator `$` means <q>result of the current expression or a function</q>. It
+can be used to assign an output value of a function, like in `$ <- value`,
+or to access the results within iterations from the previous cycles of
+iterations, like with `$-1`, accessing the previous iteration result, or
+`$3` accessing the result of the third iteration from the beginning.
+
+### Mappings
+
+Operators `->` `<-` define mappings: they do project each of the members of
 an object (a category: collection, iterator or a data type) resulting from
 an expression on the one side to the statement given on the other.
 
@@ -81,63 +90,69 @@ type) to the set of return values defined by the return data type:
 
     fx some: input Type -> output Type
 
-When provided inside iterator decomposition it projects each of the items
-of the iterator into a new value:
+Operator `->` is also used inside collections of key-value maps, separating
+keys and their corresponding values.
 
-    x <- 0..<100 -> mulTry x, 2
+### Generic mapping
+
+Operator `=>` is used to introduce generic arguments as a natural
+transformation.
+
+### Iterating operators
+
+Operators `|>` and `<|` used to build iterators: it maps of the items
+of an iterable collection into a new value:
+
+    x <- 0..<100 |> mulTry x, 2
 
 which will result in a new iterator over doubled values in the range from
 0 to 99. See how `<-` is looking like $\in$ mathematical symbol?
 
-Operators has a second form `|>` and `<|` which allows to skip use of named
-values; it brings the result to the first argument of the next call - or to
-the position specified by context operator `_`:
+One may skip te initial `x <-` assignment; in this case the input value of
+the current iteration will be put into the first argument of the next expression:
 
     0..<100 |> mulTry 2
 
-or
+one may also use the context operator `_`:
+
+    0..<100 |> _ mulTry 2
+
+or reverse the order of the expressions:
 
     mulTry 2 <| 0..<100
 
-When provided inside branching context it projects all values in a provided
-branch into the result of a branch execution:
-
-    data MaybyU8: none | some(U8)
-
-    let val: MaybyU8 := {- some assigned value -}
-    let res := val =>
-        |? none -> {- do something -}
-        |? some(x) -> {- do something else -}
-
-All projection operators may be used for constructing loops and cycles.
-
-### Previous value
-
-Operator `$` defines a value yielded by a previous call of a generator.
-When suffixed with a signed integer specifies depth of the call, for instance
-`$-1` means a value returned two calls back (thus simple form `$` stays for
-`$-0`).
-
 ### Branching
 
-Operators `.. => .. |? .. |? .. |: ..` are called branching operators.
-It corresponds to `match { .. -> .., .. -> .. }` construction.
+Operators `.. >| .. |? .. |? .. |: ..` are called branching operators.
+They correspond to `match { .. -> .., .. -> .. }` construction.
 
-Operator `.. ?: .. |: ..` is  ternary operator, corresponding to
+Operator `.. |? .. |: ..` is also the ternary operator, corresponding to
 `if .. then .. else` construction. It also has a form of
-`.. ?: .. |..?: .. ?: ..` corresponding to
-`if .. then .. elseIf .. then .. else ..`.
+`condition1 |? statement1 |: condition2 |? statement2 |: statementElse`,
+corresponding to 
+`if condition1 then statement1 elseIf condition2 then statement2 else statementElse`.
 
-Operator `.. ?? ..`
+### Monadic operators
 
-### Exception
-
-Operator `!!`
+Operators `!`, `!!`, `?` and `??` are used with monad types (like
+optionals/maybes or result types). First, `!` and `?` marks a part of the
+expression which should be tested against unwrapped monad value; if the unwrap
+procedure fails, it will default to the expression put after `!!` or `??` 
+operator at the end of the same line. For instance, if `value` is of `Maybe` 
+type we can write `value ?? 0`; or `value !! noValue`; the first will default
+expression to zero, and the second convert return type of the function to a
+result type, create an enum `Error` with variant `noValue` and will return
+that value if the maybe monad in `value` doesn't contain an actual value.
 
 ### Tagging
 
-Operator `#`
+Operator `#` adds context tags to the values; for instance it is used to add
+integer tag to co-product type variants (like in `data Bool: false#0 | true#1`)
+or to enforce some literal to be of a specific data type (like in `..100#U8`,
+where the range is enforced to be over `U8` type).
 
 ### Annotation
 
-Operator `@`
+Operator `@` is used to annotate Cation statements. Annotations are a way of
+metaprogramming: they are similar to procedural macros in Rust or annotations
+in Java.

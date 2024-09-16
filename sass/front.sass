@@ -11,11 +11,19 @@ body
 
   > nav
     background-color: $nav-bg
+    box-shadow: #182128 0 0 6px
     color: white
+
     padding: 4pt
     display: flex
     align-items: center
     gap: 0.5rem
+
+    position: fixed
+    z-index: 100
+    top: 0
+    width: 100vw
+    box-sizing: border-box
 
     #logo, #logo:visited, #logo:active, #logo:hover
       text-decoration: none !important
