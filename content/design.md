@@ -33,6 +33,14 @@ It has the following distinguishing features, which taken together set it aside 
 8. Program compilation is an evaluation of expressions
 9. Designed for the creation of domain-specific languages
 
+### Mutability and racing conditions
+
+There are no variables, just values.
+
+### Exception handling
+
+### Memory addressing
+
 ## Program structure
 
 On the high level, the Cation program consists of (optionally annotated) **statements**, which can be either
@@ -365,7 +373,7 @@ Supported bit length and encodings for **floating-point types** are:
 | `F128`    | 16    | IEEE Quad         | `apfloat::ieee::Quad`              |
 | `F256`    | 32    | IEEE Oct          | `apfloat::ieee::Oct`               |
 
-**Range types** are simplify creation of [collection types](#iterable-collections), described below, as well as an
+**Range types** simplify creation of [collection types](#iterable-collections), described below, as well as are an
 efficient tool in building [cycles and iterators](#iterating-operators). Cation comes with the following set of
 range types, each of which can be instantiated using a shorthand **range operator**.
 

@@ -3,86 +3,190 @@ description = "Cation Language Reference"
 template = "page.html"
 +++
 
-## Keywords
+# Cation Language Reference
+
+## Lexical structure
+
+The lexical structure of Cation describes what sequence of characters form valid tokens of the language. These valid
+tokens form the lowest-level building blocks of the language and are used to describe the rest of the language in
+subsequent chapters. A token consists of an identifier, keyword, punctuation, literal, or operator.
+
+In most cases, tokens are generated from the characters of a Cation source file by considering the longest possible
+substring from the input text, within the constraints of the grammar that are specified below. This behavior is referred
+to as longest match or maximal munch.
+
+### Whitespace and comments
+
+Whitespace has three uses:
+- to separate tokens in the source file;
+- to separate statements with indentation;
+- to distinguish between prefix and infix operators (see Operators);
+
+The following characters are considered whitespace: space (U+0020), line feed (U+000A), carriage return (U+000D),
+horizontal tab (U+0009), vertical tab (U+000B), form feed (U+000C) and null (U+0000).
+
+Comments are treated as whitespace by the compiler. Single line comments begin with `--` and continue until a line feed
+(U+000A) or carriage return (U+000D). Multiline comments begin with `{-` and end with `-}`. Nesting multiline comments
+is allowed, but the comment markers must be balanced.
+
+### Identifiers
+
+Identifiers begin with an uppercase or lowercase letter A through Z, an underscore (`_`), a noncombining alphanumeric 
+Unicode character in the Basic Multilingual Plane, or a character outside the Basic Multilingual Plane that isn’t in
+a Private Use Area. After the first character, digits and combining Unicode characters are also allowed.
+
+To use ASCII punctuation characters in an identifier, or a reserved word, put a backtick (`` ` ``) before and after it.
+For example, `data` isn’t a valid identifier, but `` `data` `` is valid. The backticks aren’t considered part of the
+identifier; `` `x` `` and `x` has the same meaning.
+
+### Keywords
+
+The following keywords are reserved and can’t be used as identifiers, unless they’re escaped with backticks, as
+described above in [Identifiers](#identifiers). Keywords other than `let` can be used as field or variant names in
+data types, as parameter names in a function declaration or function call without being escaped with backticks.
 
 - `data`: defines new data type
 - `fx`: defines new function (prefix function)
 - `infx`: defines new infix function
-- `let`: defines new instance of a data type
+- `alias`: defines a new alias for a function
+- `let`: defines new value with some data type
 - `class`: defines a new type class
 
-## Build-in operators
+The following tokens are reserved as punctuation and can’t be used as custom operators: `(`, `)`, `{`, `}`, `[`, `]`,
+`.`, `,`, `|`, `:`, `;`, `@`, `#`, `=>`, `->`, `<-`, `<|`, `|>`, `>|`, `|?`, `|:`, `` ` ``, `~`.
 
-### Grouping
+### Literals
 
-Grouping operator is `(`..`)` constructs an anonymous data type.
+A <dfn>literal</dfn> is the source code representation of a value of a type, such as a number or string.
 
-### Details
+The following are examples of literals:
 
-Operator `:`
+```
+42               -- Integer literal
+42#U8            -- Tagged integer literal
+3.14159          -- Floating-point literal
+"Hello, world!"  -- String literal
+```
 
-Defines a details of a previous statement.
+A literal without a [tag](#tags) doesn’t have a type on its own. Instead, Cation’s type inference attempts to infer
+a type for the literal. For example, in the declaration `let x: U8 := 42`, Cation uses the explicit type information
+(`: U8`) to infer that the type of the integer literal `42` is `U8`. If there isn’t suitable type information available,
+Cation infers that the literal’s type is one of the default literal built-in Cation types listed in the table below. 
 
-### Composition and categorical product
+| Literal  | Default type |
+|:---------|-------------:|
+| Integer  |          U64 |
+| Float    |          F64 |
+| String   |       String |
 
-Operator `,`
+When specifying the type annotation for a literal value with a tag, the annotation’s type must be a type that can be
+instantiated from that literal value.
 
-### Categorical co-product
+For example, in the declaration `let str := "Hello, world"`, the default inferred type of the string literal
+`"Hello, world"` is `String`. This can be changed by using type annotation or tag: both 
+`let str: AsciiString := "Hello, world"` and `let str := "Hello, world"#AsciiString` will be inferred to `AsciiString`
+type instead of `String`.
 
-Operator `|`
+#### Integer literals
 
-### Decomposition assignment
+<dfn>Integer literals</dfn> represent integer values of some precision. By default, integer literals are expressed in
+decimal; you can specify an alternate base using a prefix:
+- binary literals begin with 0b,
+- octal literals begin with 0o,
+- and hexadecimal literals begin with 0x.
 
-Operator `:=` is called <dfn>decomposition assignment</dfn>
+Decimal literals contain the digits 0 through 9. Binary literals contain 0 and 1, octal literals contain 0 through 7,
+and hexadecimal literals contain 0 through 9 as well as A through F in upper- or lowercase.
 
-### Call
+Negative integers literals are expressed by prepending a minus sign (-) to an integer literal, as in `-42`.
 
-Call of a prefix function `fn` is `fn args`.
+Underscores (`_`) are allowed between digits for readability, but they’re ignored and therefore don’t affect the value of
+the literal. Integer literals can begin with leading zeros (`0`), but they’re likewise ignored and don’t affect the base
+or value of the literal.
 
-`args` can be a named or unnamed data type matching arguments in the
-function declarator. They can be kapt in `(`..`)`, or without them,
-but must be separated with a comma `,`.
+Unless otherwise specified, the default inferred type of an integer literal is the Cation built-in type `U64`. 
+Cation has built-in types for various sizes of signed, unsigned and built-in integers, as described in
+[Integers](#integers).
 
-Thus, a function always takes a single argument, which can be a named or
-unnamed data type.
+#### Floating-point literals
 
-Prefix functions may be called using an infix notation: `(args).fn`, or via
-a decomposition `arg0.fn arg1, .., argLast`.
+<dfn>Floating-point literals</dfn> represent floating-point values of some precision.
 
-Call of an infix function `infn` is `arg0 infn arg1, .., argLast`. It can
-be reverted via use of `(infn arg0, .., argLast)` form.
+By default, floating-point literals are expressed in decimal (with no prefix), but they can also be expressed in
+hexadecimal (with a 0x prefix).
 
-### Collection/iterator comprehension
+Decimal floating-point literals consist of a sequence of decimal digits followed by either a decimal fraction, a decimal
+exponent, or both. The decimal fraction consists of a decimal point (`.`) followed by a sequence of decimal digits. The
+exponent consists of an upper- or lowercase `e` prefix followed by a sequence of decimal digits that indicates what
+power of 10 the value preceding the `e` is multiplied by. For example, `1.25e2` represents 1.25 x 10², which evaluates
+to 125.0. Similarly, `1.25e-2` represents 1.25 x 10⁻², which evaluates to 0.0125.
 
-Operators `[`..`]`, `{`..`}` and `{`..`->`..`}`
+Hexadecimal floating-point literals consist of a 0x prefix, followed by an optional hexadecimal fraction, followed by a
+hexadecimal exponent. The hexadecimal fraction consists of a decimal point followed by a sequence of hexadecimal digits.
+The exponent consists of an upper- or lowercase p prefix followed by a sequence of decimal digits that indicates what
+power of 2 the value preceding the p is multiplied by. For example, `0xFp2` represents 15 x 2², which evaluates to 60.
+Similarly, `0xFp-2` represents 15 x 2⁻², which evaluates to 3.75.
 
-### Range operators
+Negative floating-point literals are expressed by prepending a minus sign (-) to a floating-point literal, as in `-42.5`.
 
-Operators `..=` and `..<` help to create iterators or collections over
-ranges. They may be combined with a step size information in form of
+Underscores (`_`) are allowed between digits for readability, but they’re ignored and therefore don’t affect the value
+of the literal. Floating-point literals can begin with leading zeros (`0`), but they’re likewise ignored and don’t
+affect the base or value of the literal.
 
-    0<=2x<=100
+Unless otherwise specified, the default inferred type of a floating-point literal is the Cation built-in `F64`, which
+represents a 64-bit floating-point number.
 
-where instead of 2 any other constant can be given
+#### String literals
 
-### Context value
+#### Binary data literals
 
-Operator `_` means context default value, like the one kept in a stack from
-a previous function call or a decomposition
+#### Date-and-time literals
 
-### Result value
+#### Custom literals
 
-Operator `$` means <q>result of the current expression or a function</q>. It
-can be used to assign an output value of a function, like in `$ <- value`,
-or to access the results within iterations from the previous cycles of
-iterations, like with `$-1`, accessing the previous iteration result, or
-`$3` accessing the result of the third iteration from the beginning.
+### Syntactic constructs
 
-### Mappings
+#### Specifiers
 
-Operators `->` `<-` define mappings: they do project each of the members of
-an object (a category: collection, iterator or a data type) resulting from
-an expression on the one side to the statement given on the other.
+#### Projections
+
+Function calls are made using projection operator expressed as a space (` `); i.e. for a prefix function `fn` the way
+to call it is to write `fn args`, where `args` can be a named or unnamed data type matching arguments in the function
+declaration. They can be kapt in `(`..`)`, or without them, but if multiple arguments are present they must be separated
+from each other with a comma `,` (product operator which composes arguments into a data type). Thus, a function always
+takes a single argument, which can be a named or unnamed data type.
+
+Prefix functions may be called using an infix notation: `(args).fn`, or via `arg0.fn arg1, .., argLast` notation.
+
+Call of an infix function `infn` is `arg0 infn arg1, .., argLast`. It can be reverted via use of
+`(infn arg0, .., argLast)` or `(infn) arg0, .., argLast` forms.
+
+#### Injections
+
+Constructs with `>|`, `|?`, `|:` symbols are called branching operators.
+They correspond to `match { .. -> .., .. -> .. }` construction.
+
+Operator `.. |? .. |: ..` is also the ternary operator, corresponding to
+`if .. then .. else` construction. It also has a form of
+`condition1 |? statement1 |: condition2 |? statement2 |: statementElse`,
+corresponding to
+`if condition1 then statement1 elseIf condition2 then statement2 else statementElse`.
+
+#### Annotations
+
+## Operators
+
+### Built-in
+
+#### Categorical limits
+
+Operator `,` is a categorical product operator. Operator `|` is categorical sum operator
+
+#### Mappings (morphisms and functors)
+
+Operators `->` `<-` define functors: they do project an object or each of
+objects in a category (value, collection, iterator or a data type) to a
+different object or a category.
 
 For instance, when used in function definition, it projects all possible
 values of a function input as data type (which may be a composite anonymous
@@ -93,12 +197,11 @@ type) to the set of return values defined by the return data type:
 Operator `->` is also used inside collections of key-value maps, separating
 keys and their corresponding values.
 
-### Generic mapping
+#### Natural transformation mapping
 
-Operator `=>` is used to introduce generic arguments as a natural
-transformation.
+Operator `=>` is used to introduce generic arguments as a natural transformation.
 
-### Iterating operators
+#### Iteration operators
 
 Operators `|>` and `<|` used to build iterators: it maps of the items
 of an iterable collection into a new value:
@@ -106,7 +209,7 @@ of an iterable collection into a new value:
     x <- 0..<100 |> mulTry x, 2
 
 which will result in a new iterator over doubled values in the range from
-0 to 99. See how `<-` is looking like $\in$ mathematical symbol?
+0 to 99.
 
 One may skip te initial `x <-` assignment; in this case the input value of
 the current iteration will be put into the first argument of the next expression:
@@ -121,18 +224,9 @@ or reverse the order of the expressions:
 
     mulTry 2 <| 0..<100
 
-### Branching
+### Standard library
 
-Operators `.. >| .. |? .. |? .. |: ..` are called branching operators.
-They correspond to `match { .. -> .., .. -> .. }` construction.
-
-Operator `.. |? .. |: ..` is also the ternary operator, corresponding to
-`if .. then .. else` construction. It also has a form of
-`condition1 |? statement1 |: condition2 |? statement2 |: statementElse`,
-corresponding to 
-`if condition1 then statement1 elseIf condition2 then statement2 else statementElse`.
-
-### Monadic operators
+#### Monadic operators
 
 Operators `!`, `!!`, `?` and `??` are used with monad types (like
 optionals/maybes or result types). First, `!` and `?` marks a part of the
@@ -144,15 +238,155 @@ expression to zero, and the second convert return type of the function to a
 result type, create an enum `Error` with variant `noValue` and will return
 that value if the maybe monad in `value` doesn't contain an actual value.
 
-### Tagging
+#### Arithmetic operators
+
+#### String operators
+
+## Types
+
+### Built-in
+
+#### Initial and terminal
+
+#### Integers
+
+Integers come in signed, unsigned and non-zero unsigned classes, each of which contains types with different bit length.
+
+Supported bit length for **integer types** are:
+
+| Bits      | Bytes     | Unsigned |  Signed | Non-zero | C equivalents            | Rust equivalents              | 
+|-----------|-----------|---------:|--------:|---------:|--------------------------|-------------------------------|
+| 8 bits    | 1 byte    |     `U8` |    `I8` |     `N8` | `(unsigned)` `char`      | `u8`, `i8`, `NonZeroU8`       |
+| 16 bits   | 2 bytes   |    `U16` |   `I16` |    `N16` | `(unsigned)` `short`     | `u16`, `i16`, `NonZeroU16`    |
+| 24 bits   | 3 bytes   |    `U24` |   `I24` |    `N24` | n/a                      | n/a                           |
+| 32 bits   | 4 bytes   |    `U32` |   `I32` |    `N32` | `(unsigned)` `long`      | `u32`, `i32`, `NonZeroU32`    |
+| 40 bits   | 5 bytes   |    `U40` |   `I40` |    `N40` | n/a                      | n/a                           |
+| 48 bits   | 6 bytes   |    `U48` |   `I48` |    `N48` | n/a                      | n/a                           |
+| 56 bits   | 7 bytes   |    `U56` |   `I56` |    `N56` | n/a                      | n/a                           |
+| 64 bits   | 8 bytes   |    `U64` |   `I64` |    `N64` | `(unsigned)` `long long` | `u64`, `i64`, `NonZeroU64`    |
+| 80 bits   | 10 bytes  |    `U80` |   `I80` |    `N80` | n/a                      | n/a                           |
+| 96 bits   | 12 bytes  |    `U96` |   `I96` |    `N96` | n/a                      | n/a                           |
+| 112 bits  | 14 bytes  |   `U112` |  `I112` |   `N112` | n/a                      | n/a                           |
+| 128 bits  | 16 bytes  |   `U128` |  `I128` |   `N128` | n/a                      | `u128`, `i128`, `NonZeroU128` |
+| 256 bits  | 32 bytes  |   `U256` |  `I256` |   `N256` | n/a                      | n/a                           |
+| 512 bits  | 64 bytes  |   `U512` |  `I512` |   `N512` | n/a                      | n/a                           |
+| 1024 bits | 128 bytes |  `U1024` | `I1024` |  `N1024` | n/a                      | n/a                           |
+
+All integer types in Cation are co-product types, made with all their allowed values. This makes it possible to use
+[injection operators](#injections) to match them against patterns and ranges.
+
+#### Floats
+
+Supported bit length and encodings for **floating-point types** are:
+
+| Type name | Bytes | Encoding          | Underlynig Rust type               |
+|-----------|-------|-------------------|------------------------------------|
+| `F16B`    | 2     | bfloat16          | `bfloat::bf16`                     |
+| `F16`     | 2     | IEEE Half         | `apfloat::ieee::Half`              |
+| `F32`     | 4     | IEEE Single       | `apfloat::ieee::Single`            |
+| `F64`     | 8     | IEEE Double       | `apfloat::ieee::Double`            |
+| `F80`     | 10    | IEEE X87 Extended | `apfloat::ieee::X87DoubleExtended` |
+| `F128`    | 16    | IEEE Quad         | `apfloat::ieee::Quad`              |
+| `F256`    | 32    | IEEE Oct          | `apfloat::ieee::Oct`               |
+
+#### Character
+
+Cation has just a single built-in Unicode character type `Char`. It is the only of the built-in types which has
+variable bit length, due to the Unicode standard. Its length varies from 8 bits to 32 bits; with 8 bit step.
+
+#### Ranges
+
+**Range types** simplify creation of [collection types](#collection-comprehension), as well as are an efficient tool for
+[cycles and iterators](#iteration-operators). Cation comes with the following set of range types, each of which can be
+instantiated using a shorthand [range expressions](#range-expressions).
+
+| Type name         | Range operator |
+|-------------------|----------------|
+| `RangeAll`        | `..`           |
+| `RangeTo`         | `..<N`         |
+| `RangeToIncl`     | `..=N`         |
+| `RangeFrom`       | `M..`          |
+| `RangeFromTo`     | `M..<N`        |
+
+### Standard library
+
+#### Small integers
+
+#### String types
+
+#### Monads
+
+## Statements
+
+### Expressions
+
+#### Collection comprehension
+
+Grouping operator is `(`..`)` constructs an anonymous data type.
+
+Operators `[`..`]`, `{`..`}` and `{`..`->`..`}` construct collection types.
+
+#### Range expressions
+
+Operators `..=` and `..<` help to create iterators or collections over
+ranges. They may be combined with a step size information in form of
+
+    0<=2x<=100
+
+where instead of 2 any other constant can be given
+
+#### Context value
+
+Operator `_` means context default value, like the one kept in a stack from
+a previous function call or a decomposition
+
+#### Result value
+
+Operator `$` means <q>result of the current expression or a function</q>. It
+can be used to assign an output value of a function, like in `$ <- value`,
+or to access the results within iterations from the previous cycles of
+iterations, like with `$-1`, accessing the previous iteration result, or
+`$3` accessing the result of the third iteration from the beginning.
+
+#### Patterns
+
+### Specifiers
+
+#### Function
+
+#### Data type
+
+#### Data class
+
+#### Value
+
+## Generics
+
+## Annotations
+
+### Attributes
+
+Statements starting with `@` are used to add attributes other Cation statements. Attributes are a way of
+metaprogramming: they are similar to procedural macros in Rust or annotations in Java.
+
+#### `@id`
+
+#### `@alias`
+
+#### `@final`
+
+#### `@override`
+
+#### `@private`
+
+### Tags
 
 Operator `#` adds context tags to the values; for instance it is used to add
 integer tag to co-product type variants (like in `data Bool: false#0 | true#1`)
 or to enforce some literal to be of a specific data type (like in `..100#U8`,
 where the range is enforced to be over `U8` type).
 
-### Annotation
+#### Co-product variant tags
 
-Operator `@` is used to annotate Cation statements. Annotations are a way of
-metaprogramming: they are similar to procedural macros in Rust or annotations
-in Java.
+#### Type tags
+
