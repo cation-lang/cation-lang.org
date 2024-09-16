@@ -17,9 +17,9 @@ prove maximum amount of resources it takes to execute.
 ## Language features
 
 Cation is made for practical tasks: we attempt to make it easy-to-read and write, avoiding as much of boilerplate code
-as possible. There are just five built-in keywords; monadic programming effortless: one does not need to declare set of
-possible error types ahead. Cation has indentation-based syntax, which makes it much more visually readable and sets it
-aside from curly-braced languages like C/C++, Rust, Scala... and makes it similar to Idris, Haskell, Python.
+as possible. There are just five built-in keywords; monadic programming is effortless: one does not need to declare set
+of possible error types ahead. Cation has indentation-based syntax, which makes it much more visually readable and sets
+it aside from curly-braced languages like C/C++, Rust, Scala... and makes it similar to Idris, Haskell, Python.
 
 It has the following distinguishing features, which taken together set it aside from other existing languages:
 
@@ -224,7 +224,9 @@ sample =? north             – if sample == north
 
 #### Composition operators
 
-Operators `( )`, `[ ]` and `{ }` are called composition operators and simplify composition operations.
+Operators `( )`, `[ ]` and `{ }` are called composition operators; they are used to create types via categorical
+composition of existing types, i.e. act as natural transformations defining new functors (as type constructors) from
+existing ones.
 
 <aside>
   <p><code>(,)</code> is the initial object in the category $\mathbf{Cation}$ of all Cation data types. It corresponds to
