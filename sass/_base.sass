@@ -21,9 +21,16 @@ body, html
   article
     margin-left: 1rem !important
     margin-right: 1rem !important
+    max-width: min(60rem, calc(100vw - 2rem)) !important
+
+@media screen and (min-width: 60em)
+  article.page > *
+    max-width: 70%
+    box-sizing: border-box
 
 main
   display: flex
+  gap: 0
   > nav
     position: sticky
     top: 0
@@ -58,8 +65,9 @@ main
             color: grey
 
   article
-    flex: 2 2
-    max-width: 60rem
+    flex: 2
+    max-width: min(60rem, 100vw)
+    box-sizing: border-box
     margin: 4rem auto
 
     h1
@@ -96,9 +104,6 @@ main
       line-height: 1.6
 
   article.page
-    > *
-      max-width: 70%
-
     h2
       margin: 2em 0 0 0
 
@@ -120,6 +125,8 @@ main
       font-size: smaller
       float: right
       width: 25%
+      padding-left: 1em
+      box-sizing: border-box
 
       p:first-child
         margin-top: 0
