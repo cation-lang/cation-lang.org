@@ -53,7 +53,7 @@ data types, as parameter names in a function declaration or function call withou
 - `class`: defines a new type class
 
 The following tokens are reserved as punctuation and can’t be used as custom operators: `(`, `)`, `{`, `}`, `[`, `]`,
-`.`, `,`, `|`, `:`, `;`, `@`, `#`, `=>`, `->`, `<-`, `<|`, `|>`, `>|`, `|?`, `|:`, `` ` ``, `~`.
+`.`, `,`, `|`, `:`, `;`, `#`, `=>`, `->`, `<-`, `<|`, `|>`, `>|`, `|?`, `|:`, `` ` ``, `~`.
 
 ### Literals
 
@@ -65,6 +65,7 @@ The following are examples of literals:
 42               -- Integer literal
 42#U8            -- Tagged integer literal
 3.14159          -- Floating-point literal
+'A'              -- Character literal
 "Hello, world!"  -- String literal
 ```
 
@@ -73,11 +74,12 @@ a type for the literal. For example, in the declaration `let x: U8 := 42`, Catio
 (`: U8`) to infer that the type of the integer literal `42` is `U8`. If there isn’t suitable type information available,
 Cation infers that the literal’s type is one of the default literal built-in Cation types listed in the table below. 
 
-| Literal  | Default type |
-|:---------|-------------:|
-| Integer  |          U64 |
-| Float    |          F64 |
-| String   |       String |
+| Literal   | Default type |
+|:----------|-------------:|
+| Integer   |          U64 |
+| Float     |          F64 |
+| Character |         Char |
+| String    |       String |
 
 When specifying the type annotation for a literal value with a tag, the annotation’s type must be a type that can be
 instantiated from that literal value.
@@ -135,6 +137,8 @@ affect the base or value of the literal.
 
 Unless otherwise specified, the default inferred type of a floating-point literal is the Cation built-in `F64`, which
 represents a 64-bit floating-point number.
+
+#### Character literal
 
 #### String literals
 
@@ -239,6 +243,50 @@ result type, create an enum `Error` with variant `noValue` and will return
 that value if the maybe monad in `value` doesn't contain an actual value.
 
 #### Arithmetic operators
+
+Unlike other languages, Cation requires to explicitly handle overflow and underflow conditions in arithmetics, as well
+as zero divisions, which is required for termination analysis and helps in avoiding undefined behaviours. Thus, each of
+arithmetic operators has multiple forms, handling overflows and underflows differently. This approach used in Cation 
+is named <dfn>checked arithmetics</dfn>.
+
+To construct arithmetic operators, a symbol representing mathematical operation (like `+`, `-`, `*`, `/`, `%`, `^`) is
+postfixed with a symbol representing the way of handling overflow, underflow or zero divisions. Such symbols are:
+- `?` for converting the result of the operation into `Maybe` monad;
+- `!` for converting the result of the operation into `Result::error` monad variant with details on specific condition
+  which has occurred;
+- `@` for wrapping a value in case of overflow;
+- `^` for saturating a value with a maximum possible value in case of overflow;
+- `|` for skipping the operation as whole.
+
+Additionally, Cation allows <dfn>native arithmetic operations</dfn> when an operation itself and the resulting type 
+guarantees impossibility of overflow or other exceptional conditions. These operations are:
+- unsigned, signed and non-zero integer addition with `+` operator, when the bit dimension of the resulting integer type
+  is equal to or exceeds the sum of the bit dimensions of the inputs;
+- signed integer subtraction with `-` operator, when the bit dimension of the resulting integer type is equal to or
+  exceeds the sum of the bit dimensions of the inputs;
+- unsigned, signed and non-zero integer multiplication with `*` operator, when the dimension of the resulting integer
+  type is equal to or exceeds the product of the bit dimensions of the inputs;
+- division with `/` operator of non-zero unsigned integers;
+- modulo division with `%` operator of non-zero unsigned integers;
+- unsigned, signed and non-zero potentiation with `^` operator when the bit dimensions of the resulting integer type
+  exceeds 
+
+Thus, the resulting table of the arithmetic operations is the following:
+
+| Operation       | Native | Maybe | Result | Wrapping | Saturating | Skipping |
+|-----------------|--------|-------|--------|----------|------------|----------|
+| Addition        | `+`    | `+?`  | `+!`   | `+@`     | `+^`       | `+`\|    |
+| Subtraction     | `-`    | `-?`  | `-!`   | `-@`     | `-^`       | `-`\|    |
+| Multiplication  | `*`    | `*?`  | `*!`   | `*@`     | `*^`       | `*`\|    |
+| Division        | `/`    | `/?`  | `/!`   | `/@`     | `/^`       | `/`\|    |
+| Modulo division | `%`    | `%?`  | `%!`   | `%@`     | `%^`       | `%`\|    |
+| Potentiation    | `^`    | `^?`  | `^!`   | `^@`     | `^^`       | `^`\|    |
+
+#### Bitwise operators
+
+#### Boolean logic operators
+
+#### Ternary logic operators
 
 #### String operators
 
