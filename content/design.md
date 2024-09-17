@@ -123,6 +123,8 @@ In Cation, data types, values and functions are all first-class citizens, such t
 expressions.
 
 Expressions are made of named entities, composed together according to the compatibility rules using functions.
+Expressions are separated either with a line feed character (U+000A), or with a semicolon `;` if put on one line one
+after the other.
 
 
 ## Language syntax

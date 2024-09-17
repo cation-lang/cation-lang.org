@@ -436,6 +436,9 @@ instantiated using a shorthand [range expressions](#range-expressions).
 
 ### Expressions
 
+Expressions are separated either with a line feed character (U+000A), or with a semicolon `;` if put on one line one
+after the other.
+
 #### Lambda expressions
 
 Lambda expressions have two forms: [operator](#lambda-operator) and [specifier](#lambda-specifier).
