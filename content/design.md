@@ -439,6 +439,95 @@ Standard library offers many types composed of the built-ins, including (but not
 - Bytes, fixed and dynamic byte arrays: `Byte`, `Bytes16`, `Bytes32`, `Blob256`, `Blob64kB`, `Blob16MB` `Blob4GB` etc;
 - Commonly-used monads `Maybe`, `Either`, `Result`, `Ternary`.
 
+### Lambda expressions
+
+<aside>
+  One of Cation's main features is an ability to treat data, values and functions the same way, making all of them
+  first-class citizens.
+</aside>
+
+<dfn>Lambda expressions</dfn> allow a combination of statements, capturing locally-defined values,
+to be treated as a function. They simplify passing functions as arguments to other functions, saving
+from boilerplate code.
+
+Lambda expressions have several forms. The canonical one is a specifier form, which starts with a `lambda` keyword,
+followed by a value name, colon, argument and return type definition and body:
+
+```
+let local: U8 = random
+lambda sq: x U8 -> U32
+    pow 2 + local
+```
+
+As any other specifier it can be put into a single line:
+```
+let local: U8 = random
+lambda sq: x U8 -> U32 := pow 2 + local
+```
+
+<aside>
+  The <code>.\</code> operator is shaped after Greek letter $\lambda$.
+</aside>
+
+The second form is an operator form using `.\` or Greek `λ`; it allows anonymous lambda definitions which may span
+a single or multiple lines. The specific syntax of this form depends on whether the lambda is the last expression in
+the line:
+
+```
+-- for the last expression in the line
+.\pow 2
+-- or even shorter
+.\^2
+```
+
+If a lambda expression has to be followed by other expressions, one need to put the expression into a parenthesis:
+```
+.\(pow 2), _
+```
+
+Lambda expressions may have own explicit arguments, separated from the function body using double-column. The return
+type may be omitted, and in this case if is inferred by the compiler from the body of the expression:
+```
+.\x U8 -> U16: x pow 2
+
+-- With a type omission:
+.\x U8: x pow 2
+
+-- If the expression is not at the end of a line
+.\(x U8: x pow 2), _
+```
+
+Finally, there is the multiline forms of lambda expressions:
+```
+let lambdaFn := .\
+    statement1
+    statement2
+```
+
+In can be used the same way as single-line expressions, with the only difference – there is no colon between the lambda
+declaration and the body:
+```
+.\ x U8
+   x pow 2
+
+.\ x U8 -> U16
+   x pow 2
+
+-- Here we can use multiline in the middle of other expression
+someFn arg1, .\(x U8 -> U16
+   x pow 2
+), argLast
+```
+
+The type of the lambda expression is `.\ input -> output`, and this type may be used in type annotations:
+```
+let squared: .\U8 -> U16 := .\pow 2
+```
+
+<!-- TODO: add on currying:
+Functions with multiple arguments is the same as a function with single argument made of anonymous data type composing
+the list of the arguments. -->
+
 
 ### Generics
 

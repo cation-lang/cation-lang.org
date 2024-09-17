@@ -42,18 +42,19 @@ identifier; `` `x` `` and `x` has the same meaning.
 ### Keywords
 
 The following keywords are reserved and can’t be used as identifiers, unless they’re escaped with backticks, as
-described above in [Identifiers](#identifiers). Keywords other than `let` can be used as field or variant names in
-data types, as parameter names in a function declaration or function call without being escaped with backticks.
+described above in [Identifiers](#identifiers). Keywords other than `let` and `lambda` can be used as field or variant
+names in data types, as parameter names in a function declaration or function call without being escaped with backticks.
 
 - `data`: defines new data type
+- `class`: defines a new data type class
 - `fx`: defines new function (prefix function)
 - `infx`: defines new infix function
+- `lambda`: defines a lambda function
 - `alias`: defines a new alias for a function
-- `let`: defines new value with some data type
-- `class`: defines a new type class
+- `let`: defines new value
 
-The following tokens are reserved as punctuation and can’t be used as custom operators: `(`, `)`, `{`, `}`, `[`, `]`,
-`.`, `,`, `|`, `:`, `;`, `#`, `=>`, `->`, `<-`, `<|`, `|>`, `>|`, `|?`, `|:`, `` ` ``, `~`.
+The following tokens are reserved as built-in operators and can’t be used in custom operators: `(`, `)`, `{`, `}`, 
+`[`, `]`, `.`, `,`, `:`, `;`, `#`, `=>`, `->`, `<-`, `<|`, `|>`, `>|`, `|?`, `|:`, `.\`, `` ` ``.
 
 ### Literals
 
@@ -228,6 +229,73 @@ or reverse the order of the expressions:
 
     mulTry 2 <| 0..<100
 
+#### Lambda operator
+
+<dfn>Lambda operator</dfn> `.\`, with alias `λ` (Greek letter lambda) is a shorthand for creating lambda expressions.
+It has four forms:
+- single-line, end of line (trailing lambda):
+  ```
+  .\args -> ret: expr
+  ```
+- single-line, alongside other expressions:
+  ```
+  .\(args -> ret: expr), _
+  ```
+- multi-line, end of line (trailing lambda block):
+  ```
+  .\args -> ret
+    expr1
+    expr2
+    -- ...
+  ```
+- multi-line, alongside other expressions:
+  ```
+  .\(args -> ret
+    expr1
+    expr2
+    -- ...
+  ), _
+  ```
+
+All forms may skip the return type `-> ret` part; in this case the return type is inferred by the compiler:
+```
+.\args: expr
+
+.\(args: expr), _
+
+.\args
+  expr1
+  expr2
+  -- ...
+
+.\(args
+  expr1
+  expr2
+  -- ...
+), _
+```
+
+If the lambda expression has no inputs, lambda operator must be simply followed by the expression itself with no
+colon used:
+```
+.\expr
+
+.\(expr), _
+
+.\
+  expr1
+  expr2
+  -- ...
+
+.\(
+  expr1
+  expr2
+  -- ...
+), _
+```
+
+See also [lambda specifier](#lambda-specifier).
+
 ### Standard library
 
 #### Monadic operators
@@ -368,6 +436,10 @@ instantiated using a shorthand [range expressions](#range-expressions).
 
 ### Expressions
 
+#### Lambda expressions
+
+Lambda expressions have two forms: [operator](#lambda-operator) and [specifier](#lambda-specifier).
+
 #### Collection comprehension
 
 Grouping operator is `(`..`)` constructs an anonymous data type.
@@ -406,7 +478,26 @@ iterations, like with `$-1`, accessing the previous iteration result, or
 
 #### Data class
 
-#### Value
+#### Value specifier
+
+#### Lambda specifier
+
+<dfn>Lambda specifier</dfn> starts with a `lambda` keyword, followed by a value name, colon, argument and return type
+definition and body:
+
+```
+let local: U8 = random
+lambda sq: x U8 -> U32
+    pow 2 + local
+```
+
+As any other specifier it can be put into a single line:
+```
+let local: U8 = random
+lambda sq: x U8 -> U32 := pow 2 + local
+```
+
+See also [lambda operator](#lambda-operator).
 
 ## Generics
 
