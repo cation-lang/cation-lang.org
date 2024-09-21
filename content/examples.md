@@ -91,7 +91,23 @@ data SpecialDates = {MonthDay ^ ..=365}
 data Birthdays = { MonthDay -> ^ ..=365 {String256 ^ ..=0xFF} }
 ```
 
-### Cycles and iterators
+### Iterators
+
+```
+class iter => item any
+    fx next: _ -> item?
+
+infx findFirst: V eq, I iter(item eq) => iter I, value V -> U64?
+    enumerate iter |> fst =?= value |? $ := lst _
+
+infx hasUnique: V eq, I iter(item eq) => iter I, value V -> Bool
+    let index := iter findFirst value !! false
+    (iter[index..] |> =?= value |? $ := false) ?? true
+    
+[0, 1, 2, 3, 4] hasUnique 1 -- true
+```
+
+### Collection comprehensions
 
 ```
 let congratulations :=
