@@ -10,14 +10,14 @@ and uses statical and strong generalized algebraic data types known as [strict t
 The language design and compiler is a work in progress. The compiler will compile the code into LLVM and [AluVM](AluVM)
 targets, and a special cross-compiler from Cation to Rust will be available.
 
-## Language objectives
+## Language Features
 
 1. ![Applied Category Theory](/symbols/act.svg)
-   Be the (first) categorical programming language with notations close to mathematics
+   The (first) categorical programming language with notations close to mathematics
 2. ![Formal analysis](/symbols/analysis.svg)
-   Support termination analysis, generalized algebraic data types and formal verification
+   Termination analysis, generalized algebraic data types and formal verification
 3. ![Fun to program](/symbols/fun.svg)
-   Be easy to read and fun to program, avoid visual clutter and boilerplate
+   Easy to read and fun to program, avoid visual clutter and boilerplate
 
 <div></div>
 
