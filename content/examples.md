@@ -50,8 +50,8 @@ data Date: year Year, monthDay MonthDay
 
 Using generics:
 ```
-data Maybe: T any -> none | some(T)
-data Result: T any, E error -> ok(T) | err(E)
+data Maybe: T any => none | some(T)
+data Result: T any, E error => ok(T) | err(E)
 ```
 
 ### Functions
@@ -94,15 +94,15 @@ data Birthdays = { MonthDay -> ^ ..=365 {String256 ^ ..=0xFF} }
 ### Iterators
 
 ```
-class iter => item any
+class iter: item any
     fx next: _ -> item?
 
 infx findFirst: V eq, I iter(item eq) => iter I, value V -> U64?
-    enumerate iter |> fst =?= value |? $ := lst _
+    enumerate iter |> fst =? value |? $ := lst _
 
 infx hasUnique: V eq, I iter(item eq) => iter I, value V -> Bool
     let index := iter findFirst value !! false
-    (iter[index..] |> =?= value |? $ := false) ?? true
+    (iter[index..] |> =? value |? $ := false) ?? true
     
 [0, 1, 2, 3, 4] hasUnique 1 -- true
 ```

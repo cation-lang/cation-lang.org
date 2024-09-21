@@ -584,8 +584,8 @@ will become `ord` and acquire the opposite infix operator `<?`.
   category of its composed input type to category of its composed output type.</p>
 </aside>
 
-Functions can be equipped with generic arguments between colon separating function name from its input arguments,
-and `=>` character:
+Functions and data types can be equipped with generic arguments between colon separating function name from its input
+arguments, and `=>` character:
 
 ```
 fx len: T any, N unsigned => collection [T ^ $N..$N] -> N
