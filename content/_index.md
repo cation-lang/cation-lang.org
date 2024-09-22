@@ -10,7 +10,7 @@ and uses statical and strong generalized algebraic data types known as [strict t
 The language design and compiler is a work in progress. The compiler will compile the code into LLVM and [AluVM](AluVM)
 targets, and a special cross-compiler from Cation to Rust will be available.
 
-## Language Features
+# Features
 
 1. ![Applied Category Theory](/symbols/act.svg)
    The (first) categorical programming language with notations close to mathematics
@@ -19,13 +19,27 @@ targets, and a special cross-compiler from Cation to Rust will be available.
 3. ![Fun to program](/symbols/fun.svg)
    Easy to read and fun to program, avoid visual clutter and boilerplate
 
-<div></div>
+# Learn more
+
+Learn cation from docs, examples or language reference. 
+
+- ## Language Overview
+
+  Check the language features and get a first impression of the language.
+
+  <a href="/overview" class="button">Language overview</a>
 
 - ## Language Design
 
   Read more on language design in the documentation.
 
   <a href="/design" class="button">Language design docs</a>
+
+- ## Category Theory
+
+  Understand the language in the terms of Category Theory.
+
+  <a href="/category" class="button">Categorical explanation</a>
 
 - ## Language Reference
 
@@ -38,6 +52,12 @@ targets, and a special cross-compiler from Cation to Rust will be available.
   See how Cation code looks like in most typical tasks.
 
   <a href="/examples" class="button">Code examples</a>
+
+- ## Try Yourself
+
+  See the language in action by trying to compile the code.
+
+  <a href="/try" class="button">Cation compiler</a>
 
 ---
 
