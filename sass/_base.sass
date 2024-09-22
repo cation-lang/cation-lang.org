@@ -103,13 +103,23 @@ main
     p, li
       line-height: 1.6
 
+    p
+      margin: 1rem 0
+      padding: 0
+
+    p + p, p + ol, p + ul, p + dl, p + table,
+    aside + p, aside + ol, aside + ul, aside + dl, aside + table
+      margin-top: 0
+
+    pre code
+      padding: 1rem
+
   article.page
     h2
       margin: 2em 0 0 0
 
     table
       border-spacing: 0
-      width: 100%
       tr th, tr, td
         padding: 4pt 2pt
         vertical-align: top
@@ -120,16 +130,28 @@ main
       tr:not(:last-child) td
         border-bottom: 1px solid lightgray
 
-    aside
+    > p, > table, > ol, > ul, > dl,
+    > pre, > blockquote,
+    > h2, > h3, > h4, > h5, > h6
+      float: left
+      clear: left
+      width: 100%
+
+    h2, h3, h4, h5, h6
       clear: both
-      font-size: smaller
+
+    p+p+aside>p:first-child,
+    aside+p+aside>p:first-child
+      margin-top: 0
+
+    aside
       float: right
+      clear: right
+      font-size: smaller
       width: 25%
       padding-left: 1em
       box-sizing: border-box
 
-      p:first-child
-        margin-top: 0
       p
         margin-bottom: 0
       ul, ol
@@ -140,6 +162,10 @@ main
       h2
         margin-top: 0
         font-size: 140%
+
+      pre code
+        white-space: break-spaces
+        padding: 0.5rem
 
   article.contents
     h2
@@ -179,11 +205,10 @@ main
         width: 66.6%
 
 dfn
-  font-weight: 900
+  font-weight: 700
   font-style: normal
 
 pre
-  padding: 1rem
   box-sizing: border-box
   font-size: smaller
   overflow: scroll
@@ -196,16 +221,15 @@ pre, code, kbd
   font-optical-sizing: auto
 
 code
-  background-color: lightgrey
+  color: white
+  background-color: $code
   padding: 0.1em 0.2em
-  font-size: smaller
   white-space: nowrap
 
 pre code
-  font-size: larger
   white-space: pre
+  display: block
 
 kbd
-  color: white
-  background-color: $code
+  background-color: lightgrey
   padding: 0.1em 0.2em

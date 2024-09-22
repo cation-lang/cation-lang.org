@@ -11,7 +11,7 @@ In real-world computing, unlike mathematics, everything is bounded: resources, c
 infinities, no arbitrary-precision rational or irrational numbers (but just their partial estimates). Most of existing
 programming languages ignored this simple fact, resulting in hundreds of pitfalls and <q>footguns</q> for the developers.
 Cation tries to avoid this, and ensures that everything is bound and measurable at compile-time. It does this using
-instruments of category theory, and as a result each Cation program can pass a termination analysis and formaly
+instruments of category theory, and as a result each Cation program can pass a termination analysis and formally
 prove maximum amount of resources it takes to execute.
 
 ## Language features
@@ -43,15 +43,15 @@ There are no variables, just values.
 
 ## Program structure
 
-On the high level, the Cation program consists of (optionally annotated) **statements**, which can be either
-**specifiers** or **expressions**.
-
 <aside>
-  <p>Since specifiers are evaluated during compilation to expressions, everything is an expression, and each expression
+  <p>Since every statement is evaluated during compilation to expressions, everything is an expression, and each expression
   resolves to a natural transformation. Natural transformations always compose with each other, any program in Cation
   evaluates to just a single natural transformation, i.e. program compilation is equal to the process of evaluating all
   expressions.</p>
 </aside>
+
+On the high level, the Cation program consists of (optionally annotated) **statements**, which can be either
+**specifiers** or **expressions**.
 
 Specifiers are evaluated by the compiler to sets of expressions, serving the primary purpose of reducing boilerplate
 code and simplifying human readability and writability of the language.
@@ -65,16 +65,16 @@ Declaration starts with one of keywords, either build-in (`data`, `fx`, `infx`, 
 extensions by domain-specific languages on top of Cation (like [Contractum]). The declaration keyword is followed by
 a declaration name, which can be used later as a part of expressions throughout Cation code.
 
+The overall structure of a specifier is the following: `<KEYWORD> <NAME> <TYPE>? <BODY>?`. Type, when present, is
+separated from the name with a semicolon operator; body, when present, is separated from the previous parts either with
+`:=` operator, when a body is given on the same line, or a newline character, with all body statements indented.
+
 <aside>
   <p>Declaration name can be any valid Unicode string; however, it must always start with a non-numeric character, must not
   contain any already defined names made of math operators (for instance <code>some+method</code> would be an invalid
   name if the name <code>+</code> was defined before with some other meaning) and must put names made with math
   operators in backquotes.</p>
 </aside>
-
-The overall structure of a specifier is the following: `<KEYWORD> <NAME> <TYPE>? <BODY>?`. Type, when present, is
-separated from the name with a semicolon operator; body, when present, is separated from the previous parts either with
-`:=` operator, when a body is given on the same line, or a newline character, with all body statements indented.
 
 Some examples of specifiers are:
 - data type specifier: 
@@ -92,6 +92,20 @@ Some examples of specifiers are:
   situations when it can be inferred; for instance, we can also write the specifier above as `let value := 5#U8`, where
   `#U8` is a type annotation.
 
+<div></div>
+
+- function specifier (infix variant):
+  ```
+  infx `+`: a Coord2D, b Coord2D -> Coord2D
+    val x := a.x + b.x
+    val y := a.y + b.y
+    x, y
+  ```
+  which can be also written as a one-liner 
+  ```
+  infx `+`: a Coord2D, b Coord2D -> Coord2D := a.x + b.x, a.y + b.y
+  ```
+
 <aside>
   <p>Here we can see several things:</p>
   <ul>
@@ -99,20 +113,6 @@ Some examples of specifiers are:
     <li>type information consists of input and return type, separated with <code>-></code> operator.</li>
   </ul>
 </aside>
-
-- function specifier (infix variant):
-
-  ```
-  infx `+`: a Coord2D, b Coord2D -> Coord2D
-    let x := a.x + b.x
-    let y := a.y + b.y
-    x, y
-  ```
- 
-  which can be also written as a one-liner 
-  ```
-  infx `+`: a Coord2D, b Coord2D -> Coord2D := a.x + b.x, a.y + b.y
-  ```
 
 ### Expressions
 
@@ -131,15 +131,15 @@ after the other.
 
 ### Fundamental operators
 
+Built-in operators are called **fundamental operators**. They are used for basic expression composability and constitute
+a backbone of the expression syntax.
+
 <aside>
   <p>Operator is a function which name is made of mathematical symbols.</p>
-  
+
   <p>Below we will discuss more about fundamental
   operators which are a backbone of the expression syntax.</p>
 </aside>
-
-Built-in operators are called **fundamental operators**. They are used for basic expression composability and constitute
-a backbone of the expression syntax.
 
 There are three sets of fundamental operators: categorical limits, projection and injection operators, iterating and
 composition operators. These operators are used to structure execution flow: branching, looping, working with
@@ -174,14 +174,14 @@ Cation there is no difference between data types and functions.
 
 The call of the prefix function can be reversed using a dot projection operator `.`: `coord.twoArgsFn`.
 
-<aside>
-  <p>One may notice that Cation language logo is made with <code>(+)</code> expression :)</p>
-</aside>
-
 Infix functions are put after their first argument, which allows more natural way of using mathematical operators and
 alike. For instance, above we have declared ``infx `+` `` operator which takes two arguments and adds them together:
 `a + b`. One may also reverse the order of the arguments passed to the infix operator by putting the call expression 
 into parentheses: `(+ a, b)` or even `(+) a, b`.
+
+<aside>
+  <p>One may notice that Cation language logo is made with <code>(+)</code> expression :)</p>
+</aside>
 
 #### Injection operators
 
@@ -192,10 +192,6 @@ they are the way how *if-else* statements and pattern matching is handled in the
 There are several ways of doing branching constructions using injection operators. First, one can use `value >|` in
 combination with `pattern |?` expressions to match the value against a set of patterns and handle a default variant
 with `|:`:
-
-<aside>
-  <p>In comments we provide Rust equivalents</p>
-</aside>
 
 ```
 data WorldDirection: north | south | west | east
@@ -210,15 +206,19 @@ sample >|                   – match sample {
 ```
 
 <aside>
-  <p>Boolean type in Cation is a co-product type, thus any boolean condition can use injection for conditional branching</p>
-  <p>One may clearly see similarities with ternary operator <code> .. ? .. : .. </code> &nbsp;in C++; however, in Cation
-  the operator clearly maintains similarity with co-product categorical composition operator <code>|</code> and
-  signifies injections of the co-product value into each of its components.</p>
+  <p>In comments we provide Rust equivalents</p>
 </aside>
 
 Next, one can use a boolean expression followed with `|?` to express *if* semantics, and use `|:` for handling *else*
 condition. Let's assume we have an expression `test` which results in a boolean value, and two expressions, `ifTrue` and
 `ifFalse` which we'd like to execute basing on the `test` value. To do so we simply write `test |? ifTrue |: ifElse`. 
+
+<aside>
+  <p>Boolean type in Cation is a co-product type, thus any boolean condition can use injection for conditional branching</p>
+  <p>One may clearly see similarities with ternary operator <code> .. ? .. : .. </code> &nbsp;in C++; however, in Cation
+  the operator clearly maintains similarity with co-product categorical composition operator <code>|</code> and
+  signifies injections of the co-product value into each of its components.</p>
+</aside>
 
 ```
 sample =? north             – if sample == north
@@ -238,16 +238,16 @@ Operators `( )`, `[ ]` and `{ }` are called composition operators; they are used
 composition of existing types, i.e. act as natural transformations defining new functors (as type constructors) from
 existing ones.
 
+Round parenthesis can be used for grouping expressions, such that the boundaries of composition operation are
+explicitly provided. When used with no values, they also can be used to represent initial object (unit) `(,)`, as
+well as terminal object (impossible type) `(|)`.
+
 <aside>
   <p><code>(,)</code> is the initial object in the category $\mathbf{Cation}$ of all Cation data types. It corresponds to
   *unit* type in other languages, like <code>()</code> in Rust or <code>void</code> in C/C++. <code>(|)</code> is the
   terminal object corresponding to *never* type or *uninhabited* enums in other languages, like <code>!</code> or
   <code>enum Impossible {}</code> in Rust.</p>
 </aside>
-
-Round parenthesis can be used for grouping expressions, such that the boundaries of composition operation are
-explicitly provided. When used with no values, they also can be used to represent initial object (unit) `(,)`, as
-well as terminal object (impossible type) `(|)`.
 
 Square brackets are used for creating ordered non-unique **collection types**. Collection type is a type composed
 dynamically (via production operation) of some elementary data types – which in other languages is called a *list*
@@ -262,13 +262,6 @@ contain from zero up to 255 elements of unsigned 8-bit integer type.
 
 #### Iterating operators
 
-<aside>
-  <p>In Cation a function and an operator may have multiple aliases. For instance, mathematical and fundamental
-  operators have an ASCII and Unicode aliases, and both can be used in code. For iterating operators, Unicode
-  version is <code>|></code>, while ASCII is 
-  <code style="padding-right: 0">|</code><code style="padding-left: 0.5pt">></code></p>
-</aside>
-
 Iterating operators are used not just for data type specifications, but also for enabling code repetitions
 (cycles and loops), iterators and generators. For this purpose iterating operators `<|` and `|>` are used.
 The semantic meaning of the expression becomes <q>take each element of a collection and bring it as a value to the other
@@ -277,6 +270,13 @@ while for `|>` the order is reversed. Thus, `0..<100#U8 |> print` will iterate o
 from zero to 100 and print each of them. When the iterating operator is combined with a composition operator, this means
 <q>put the resulting values from the expression into a new collection</q>: for instance `[0..<100#U8 |> pow 2]` would
 collect all squared numbers from 0 to 99 into a new list.
+
+<aside>
+  <p>In Cation a function and an operator may have multiple aliases. For instance, mathematical and fundamental
+  operators have an ASCII and Unicode aliases, and both can be used in code. For iterating operators, Unicode
+  version is <code>|></code>, while ASCII is 
+  <code style="padding-right: 0">|</code><code style="padding-left: 0.5pt">></code></p>
+</aside>
 
 When working with loops using iterating operators one may need to access the current value from the iterator in explicit
 form, as well as to use a results from previous rounds of the iterator. This can be done with `_` and `$` operators:
@@ -317,7 +317,7 @@ defined in the standard library.
 There are four main classes of built-in types: 
 
 <aside>
-  <p>&nbsp;</p><p>You can learn more about type classes below</p>
+  <p>You can learn more about type classes below</p>
 </aside>
 
 - **unit** `(,)` and **never** type `(|)`, which we have covered above;
@@ -330,17 +330,11 @@ There are four main classes of built-in types:
   <p>Unicode character type <code>Char</code> is the only type having variable bit length, which is caused by the
   Unicode standard. Its length varies from 8 bits to 32 bits; with 8 bit step.</p>
 </aside>
- 
+
 Integers and floats offer many times with different bit length; float types also offer different memory encodings.
 Unicode character has variable bit length.
 
 Supported bit length for **integer types** are:
-
-<aside>
-  <p>&nbsp;</p>
-  <p><sup>*</sup> Rust <a href="https://crates.io/amplify"><code>amplify</code></a> library offers many of the integer
-  types present in the Cation language</p>
-</aside>
 
 | Bits      | Bytes     | Unsigned |  Signed | Non-zero | C equivalents            | Rust equivalents *            | 
 |-----------|-----------|---------:|--------:|---------:|--------------------------|-------------------------------|
@@ -359,6 +353,12 @@ Supported bit length for **integer types** are:
 | 256 bits  | 32 bytes  |   `U256` |  `I256` |   `N256` | n/a                      | n/a                           |
 | 512 bits  | 64 bytes  |   `U512` |  `I512` |   `N512` | n/a                      | n/a                           |
 | 1024 bits | 128 bytes |  `U1024` | `I1024` |  `N1024` | n/a                      | n/a                           |
+
+<aside>
+  <p>&nbsp;</p>
+  <p><sup>*</sup> Rust <a href="https://crates.io/amplify"><code>amplify</code></a> library offers many of the integer
+  types present in the Cation language</p>
+</aside>
 
 All integer types in Cation are co-product types, made with all their allowed values. This makes it possible to use
 [injection operators](#injection-operators) to match them against patterns and ranges.
@@ -420,17 +420,17 @@ can't have less than one byte – and can't grow larger than 20 bytes.
 
 For simplifying syntax strict encoding provides comprehensions and defaults for specifying the confinement bounds:
 
-<aside>
-  <p>Please note that type expression of <code>[•^N..=N]</code> is not allowed, since it means <q>dynamic</q> collection
-  with a fixed number of items, which is nonsense, so please use <code>[•^N]</code> instead.</p>
-</aside>
-
 | Comprehension         | Expands to         | Comment                                                                 |
 |-----------------------|--------------------|-------------------------------------------------------------------------|
 | `[•]`                 | `[• ^ 0..=0xFFFF]` | Default number of elements in confined collections is from zero to 2^16 |
 | `[•+]` _or_ `[•^1..]` | `[• ^ 1..=0xFFFF]` | Collection which must contain at least one item                         |
 | `[•^N]`               | `[• ^ N..=0xFFFF]` | Collection with minimum of `N` items                                    |
 | `[•^..=N]`            | `[• ^ 0..=N]`      | Collection having maximum of `N` items                                  |
+
+<aside>
+  <p>Please note that type expression of <code>[•^N..=N]</code> is not allowed, since it means <q>dynamic</q> collection
+  with a fixed number of items, which is nonsense, so please use <code>[•^N]</code> instead.</p>
+</aside>
 
 #### Standard library types
 
@@ -443,37 +443,37 @@ Standard library offers many types composed of the built-ins, including (but not
 
 ### Lambda expressions
 
-<aside>
-  One of Cation's main features is an ability to treat data, values and functions the same way, making all of them
-  first-class citizens.
-</aside>
-
 <dfn>Lambda expressions</dfn> allow a combination of statements, capturing locally-defined values,
 to be treated as a function. They simplify passing functions as arguments to other functions, saving
 from boilerplate code.
+
+<aside>
+  <p>One of Cation's main features is an ability to treat data, values and functions the same way, making all of them
+  first-class citizens.</p>
+</aside>
 
 Lambda expressions have several forms. The canonical one is a specifier form, which starts with a `lambda` keyword,
 followed by a value name, colon, argument and return type definition and body:
 
 ```
-let local: U8 = random
+val local: U8 = random
 lambda sq: x U8 -> U32
     pow 2 + local
 ```
 
 As any other specifier it can be put into a single line:
 ```
-let local: U8 = random
+val local: U8 = random
 lambda sq: x U8 -> U32 := pow 2 + local
 ```
-
-<aside>
-  The <code>.\</code> operator is shaped after Greek letter $\lambda$.
-</aside>
 
 The second form is an operator form using `.\` or Greek `λ`; it allows anonymous lambda definitions which may span
 a single or multiple lines. The specific syntax of this form depends on whether the lambda is the last expression in
 the line:
+
+<aside>
+  <p>The <code>.\</code> operator is shaped after Greek letter $\lambda$.</p>
+</aside>
 
 ```
 -- for the last expression in the line
@@ -543,12 +543,6 @@ programming, without the need for complex inheritance rules.
 Type classes are declared with `class` keyword followed by a lowercase name; here is an example how `ord` and `eq`
 classes are defined in the standard library:
 
-<aside>
-  <p>Cation tries to use semantically and mathematically correct operator symbols. Thus, instead of using simple
-  <code>></code> operator, which states that the left value is greater than one, we add a question mart to it,
-  applying semantic of test.</p>
-</aside>
-
 ```
 class ord
   infx `>?`: Self, Self -> Bool
@@ -573,19 +567,25 @@ class eq: ord
     a =? b |? true |: a <? b
 ```
 
+<aside>
+  <p>Cation tries to use semantically and mathematically correct operator symbols. Thus, instead of using simple
+  <code>></code> operator, which states that the left value is greater than one, we add a question mart to it,
+  applying semantic of test.</p>
+</aside>
+
 With declarations, all types which has infix `>?` operator taking two arguments of the same type and returning bool
 will become `ord` and acquire the opposite infix operator `<?`.
 
 #### Generic arguments
+
+Functions and data types can be equipped with generic arguments between colon separating function name from its input
+arguments, and `=>` character:
 
 <aside>
   <p>In terms of category theory, generic arguments represent a co-product of all generic types, and `=>` operator is a
   natural transformation from the functor constructing that co-product to the function itself as a functor mapping
   category of its composed input type to category of its composed output type.</p>
 </aside>
-
-Functions and data types can be equipped with generic arguments between colon separating function name from its input
-arguments, and `=>` character:
 
 ```
 fx len: T any, N unsigned => collection [T ^ $N..$N] -> N
@@ -596,14 +596,14 @@ type class name to which the type must belong. Multiple generic parameters shoul
 
 #### Confinement constraints
 
+When collections are used inside functions sometimes it is important to make sure that the concrete collection types
+provided to the function in different input or output arguments match their dimensions. This is achieved with a
+special form of generics named **confinement constrains**:
+
 <aside>
   <p>Confinement constraints make Cation to fully support generalized algebraic data types (GADT) and ensure at
   compile-time absence of stack overflows and out-of-memory bounds access</p>
 </aside>
-
-When collections are used inside functions sometimes it is important to make sure that the concrete collection types
-provided to the function in different input or output arguments match their dimensions. This is achieved with a
-special form of generics named **confinement constrains**:
 
 ```
 fx append: N unsigned => 
@@ -617,15 +617,15 @@ and bounds on all resources used by the language. During compilation, it deduces
 values used in the program, and uses that graph to automatically parallelize all computations which do not access the
 same values at the same time. Thus, most of the parallelism will come for free, with no effort from the programmer.
 
-<aside>
-  <p>Specific syntax for channel-based concurrency programming and computational parallelism is still work in progress</p>
-</aside>
-
 When an explicit parallelism is needed, Cation offers channel-based parallelism, made with rho-calculus. Thus, instead
 of a need to differentiate async and non-async functions one uses non-blocking channels to send data by value. Since
 there is no difference between data, types, functions and everything is just a natural transformations, channels can
 send also functions between threads. This significantly simplifies programming patterns and reduces the number of 
 possible pitfalls,
+
+<aside>
+  <p>Specific syntax for channel-based concurrency programming and computational parallelism is still work in progress</p>
+</aside>
 
 
 ## Language comparison
