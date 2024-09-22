@@ -138,8 +138,8 @@ projA =? valueA && projB =? valueB !! mustBeEqual
 ```
 
 <aside>
-<p>In fact, this is a syntactic sugar: <code>data</code> is a macro coming with a standard library, which expends into
-the code defining type, constructor function and two projections:</p>
+<p>In fact, this is a syntactic sugar: <code>data</code> is a macro coming with the standard library, which expends into
+this code, defining type, constructor function and two projections:</p>
 
 ```
 type Prod
@@ -153,8 +153,8 @@ type `.b`: self Prod -> B
 </aside>
 
 *Co-product data types* are bi-functors corresponding to the morphism in the $\mathbf{Cation^\mathrm{op}}$: they
-map a union of sets representing all possible values in $L$ and $R$ to a new category $S$. Cation union with a
-pipe operator (`|`) and the new type may be defined in the following way:
+map a union of sets representing all possible values in $L$ and $R$ to a new category $S$: $S \doteqdot L + R$. Cation
+union with a pipe operator (`|`) and the new type may be defined in the following way:
 
 ```
 data Either: A | B
