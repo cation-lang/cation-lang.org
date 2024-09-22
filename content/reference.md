@@ -489,14 +489,14 @@ iterations, like with `$-1`, accessing the previous iteration result, or
 definition and body:
 
 ```
-let local: U8 = random
+val local: U8 = random
 lambda sq: x U8 -> U32
     pow 2 + local
 ```
 
 As any other specifier it can be put into a single line:
 ```
-let local: U8 = random
+val local: U8 = random
 lambda sq: x U8 -> U32 := pow 2 + local
 ```
 

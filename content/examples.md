@@ -58,8 +58,8 @@ data Result: T any, E error => ok(T) | err(E)
 
 ```
 infx `+`: a Coord2D, b Coord2D -> Coord2D
-  let x := a.x + b.x
-  let y := a.y + b.y
+  val x := a.x + b.x
+  val y := a.y + b.y
   x, y
 ```
 
@@ -68,7 +68,7 @@ infx `+`: a Coord2D, b Coord2D -> Coord2D
 ```
 data WorldDirection: north | south | west | east
 
-let sample: WorldDirection = random
+val sample: WorldDirection = random
 
 sample >|
   north |? println("I am northman") 
@@ -101,7 +101,7 @@ infx findFirst: V eq, I iter(item eq) => iter I, value V -> U64?
     enumerate iter |> fst =? value |? $ := lst _
 
 infx hasUnique: V eq, I iter(item eq) => iter I, value V -> Bool
-    let index := iter findFirst value !! false
+    val index := iter findFirst value !! false
     (iter[index..] |> =? value |? $ := false) ?? true
     
 [0, 1, 2, 3, 4] hasUnique 1 -- true
@@ -110,7 +110,7 @@ infx hasUnique: V eq, I iter(item eq) => iter I, value V -> Bool
 ### Collection comprehensions
 
 ```
-let congratulations :=
+val congratulations :=
     [ "Happy birthday, \(_)" <| birthdays.values.flatten ]
 ```
 
@@ -120,8 +120,8 @@ let congratulations :=
   fx sumOrZero: x U32, y U32 -> U32
     x +? y ?? 0 -- here we return zero on overflow
 
-  let x, y: U32, U32 := random, random
-  let sum = x +? y !! overflow -- here we return Err(overflow) on overflow
+  val x, y: U32, U32 := random, random
+  val sum = x +? y !! overflow -- here we return Err(overflow) on overflow
   sumOrZero sum, x
 ```
 

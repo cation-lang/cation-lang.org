@@ -85,11 +85,11 @@ Some examples of specifiers are:
   which is `x U64, y U65`. Data type specifiers contain no body.
 - value specifier:
   ```
-  let value: U8 := 5
+  val value: U8 := 5
   ```
-  where `let value` is a *value declaration*, separated with colon from the type information, which is `U8`. Next,
+  where `val value` is a *value declaration*, separated with colon from the type information, which is `U8`. Next,
   the body contains the value assigned to the named value instance. Value specifications may have data type omitted in
-  situations when it can be inferred; for instance, we can also write the specifier above as `let value := 5#U8`, where
+  situations when it can be inferred; for instance, we can also write the specifier above as `val value := 5#U8`, where
   `#U8` is a type annotation.
 
 <div></div>
@@ -165,7 +165,7 @@ following manner:
 ```
 fx twoArgsFn: x U32, y U32 -> U32
 
-let coord := x U32, y U32
+val coord := x U32, y U32
 twoArgsFn coord 
 ```
 
@@ -196,7 +196,7 @@ with `|:`:
 ```
 data WorldDirection: north | south | west | east
 
-let sample: WorldDirection
+val sample: WorldDirection
 
 sample >|                   – match sample {
   north |? doSomething1     –   north => {} 
@@ -501,7 +501,7 @@ type may be omitted, and in this case if is inferred by the compiler from the bo
 
 Finally, there is the multiline forms of lambda expressions:
 ```
-let lambdaFn := .\
+lambda lambdaFn
     statement1
     statement2
 ```
@@ -523,7 +523,7 @@ someFn arg1, .\(x U8 -> U16
 
 The type of the lambda expression is `.\ input -> output`, and this type may be used in type annotations:
 ```
-let squared: .\U8 -> U16 := .\pow 2
+val squared: .\U8 -> U16 := .\pow 2
 ```
 
 <!-- TODO: add on currying:
