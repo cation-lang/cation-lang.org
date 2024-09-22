@@ -18,10 +18,17 @@ body, html
     display: none
 
 @media screen and (max-width: 60em)
-  article
-    margin-left: 1rem !important
-    margin-right: 1rem !important
-    max-width: min(60rem, calc(100vw - 2rem)) !important
+  main
+    article
+      margin-left: 1rem !important
+      margin-right: 1rem !important
+      max-width: min(60rem, calc(100vw - 2rem)) !important
+      box-sizing: border-box
+    article.page
+      aside
+        float: none !important
+        clear: both !important
+        width: 100% !important
 
 @media screen and (min-width: 60em)
   article.page > *
@@ -115,6 +122,9 @@ main
       padding: 1rem
 
   article.page
+    > *
+      box-sizing: border-box
+
     h2
       margin: 2em 0 0 0
 
@@ -212,24 +222,24 @@ pre
   box-sizing: border-box
   font-size: smaller
   overflow: scroll
+  color: white
+  background-color: $code
   kbd, code
     background-color: inherit
     padding: 0
+  code
+    white-space: pre
+    display: block
 
 pre, code, kbd
   font-family: "JetBrains Mono", monospace
   font-optical-sizing: auto
 
 code
-  color: white
-  background-color: $code
   padding: 0.1em 0.2em
-  white-space: nowrap
-
-pre code
-  white-space: pre
-  display: block
+  white-space: break-spaces
 
 kbd
-  background-color: lightgrey
   padding: 0.1em 0.2em
+  white-space: break-spaces
+  background-color: lightgrey
