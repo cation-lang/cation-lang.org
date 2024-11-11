@@ -82,7 +82,7 @@ Some examples of specifiers are:
   data Coord2D: x U64, y U64
   ```
   where `data Coord2D` is a *data type declaration*, separated with colon from the type information, 
-  which is `x U64, y U65`. Data type specifiers contain no body.
+  which is `x U64, y U64`. Data type specifiers contain no body.
 - value specifier:
   ```
   val value: U8 := 5
@@ -155,7 +155,7 @@ makes 2D coordinate as a product of two 32-bit integers. Likewise, a co-product 
 
 #### Projection operators
 
-Projection operators <code>&nbsp;</code> and `.` allow to call a function providing it with arguments. The use of these
+Projection operators <code>&nbsp;</code> (space) and `.` (dot) allow to call a function providing it with arguments. The use of these
 two forms depends on the function type and a number of its arguments. There are two types of functions, which affect the
 operator: prefix functions (declared using `fx` keyword) and infix functions (declared with `infx` keyword). For prefix
 operators one calls a function (i.e. does projection) by putting function argument after the function name, separating
