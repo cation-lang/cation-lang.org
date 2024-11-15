@@ -134,7 +134,7 @@ val projA := new.a
 val projB := new.b
 
 -- testing that the result is the same as the original values:
-projA =? valueA && projB =? valueB !! mustBeEqual 
+projA =?= valueA && projB =?= valueB !! mustBeEqual 
 ```
 
 <aside>

@@ -98,11 +98,11 @@ class iter: item any
     fx next: _ -> item?
 
 infx findFirst: V eq, I iter(item eq) => iter I, value V -> U64?
-    enumerate iter |> fst =? value |? $ := lst _
+    enumerate iter |> fst =?= value |? $ := lst _
 
 infx hasUnique: V eq, I iter(item eq) => iter I, value V -> Bool
     val index := iter findFirst value !! false
-    (iter[index..] |> =? value |? $ := false) ?? true
+    (iter[index..] |> =?= value |? $ := false) ?? true
     
 [0, 1, 2, 3, 4] hasUnique 1 -- true
 ```
@@ -136,18 +136,18 @@ class ord
     ~ a >? b
 
 class eq: ord
-  infx `=?`: Self, Self -> Bool
+  infx `=?=`: Self, Self -> Bool
 
   @final
-  infx `=!`: a Self, b Self -> Bool
-    ~ a =? b
+  infx `=/=`: a Self, b Self -> Bool
+    ~ (a =?= b)
   
   @final
-  infx `>=?`: a Self, b Self -> Bool
-    a =? b |? true |: a >? b
+  infx `>?=`: a Self, b Self -> Bool
+    a =?= b |? true |: a >? b
   
   @final
-  infx `<=?`: a Self, b Self -> Bool
-    a =? b |? true |: a <? b
+  infx `<?=`: a Self, b Self -> Bool
+    a =?= b |? true |: a <? b
 ```
 

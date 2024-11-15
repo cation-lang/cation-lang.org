@@ -168,13 +168,22 @@ Call of an infix function `infn` is `arg0 infn arg1, .., argLast`. It can be rev
 
 #### Injections
 
-Constructs with `>|`, `|?`, `|:` symbols are called branching operators.
-They correspond to `match { .. -> .., .. -> .. }` construction.
+Injections are branching operators, which allow code execution to branch execution basing on a value of a co-product
+type. They are either pattern matching (an equivalent of Rust `match` and Haskell `case`), or a boolean-test based.
 
-Operator `.. |? .. |: ..` is also the ternary operator, corresponding to
-`if .. then .. else` construction. It also has a form of
-`condition1 |? statement1 |: condition2 |? statement2 |: statementElse`,
-corresponding to
+Pattern matching is done with `>|` infix operator, which takes a value of a co-product type on the left side, and a
+set of natural transformations matching each of the injections on the right:
+
+```idris
+value >|
+  pattern1 => code
+  pattern2 => code
+  _ => code -- default match
+```
+
+Branching based on the boolean conditions uses `.. |? .. |: ..` operator, which is also a ternary operator, 
+corresponding to `if .. then .. else` construction. It also has a form of
+`condition1 |? statement1 |: condition2 |? statement2 |: statementElse`, corresponding to
 `if condition1 then statement1 elseIf condition2 then statement2 else statementElse`.
 
 #### Annotations
@@ -322,9 +331,9 @@ postfixed with a symbol representing the way of handling overflow, underflow or 
 - `?` for converting the result of the operation into `Maybe` monad;
 - `!` for converting the result of the operation into `Result::error` monad variant with details on specific condition
   which has occurred;
-- `@` for wrapping a value in case of overflow;
+- `%` for wrapping a value in case of overflow (modulo-arithmetic) and returning `ArRes` monad;
 - `^` for saturating a value with a maximum possible value in case of overflow;
-- `|` for skipping the operation as whole.
+- with no postfix for extending the result type to the next bit dimension so it always fits.
 
 Additionally, Cation allows <dfn>native arithmetic operations</dfn> when an operation itself and the resulting type 
 guarantees impossibility of overflow or other exceptional conditions. These operations are:
@@ -341,14 +350,14 @@ guarantees impossibility of overflow or other exceptional conditions. These oper
 
 Thus, the resulting table of the arithmetic operations is the following:
 
-| Operation       | Native | Maybe | Result | Wrapping | Saturating | Skipping |
-|-----------------|--------|-------|--------|----------|------------|----------|
-| Addition        | `+`    | `+?`  | `+!`   | `+@`     | `+^`       | `+`\|    |
-| Subtraction     | `-`    | `-?`  | `-!`   | `-@`     | `-^`       | `-`\|    |
-| Multiplication  | `*`    | `*?`  | `*!`   | `*@`     | `*^`       | `*`\|    |
-| Division        | `/`    | `/?`  | `/!`   | `/@`     | `/^`       | `/`\|    |
-| Modulo division | `%`    | `%?`  | `%!`   | `%@`     | `%^`       | `%`\|    |
-| Potentiation    | `^`    | `^?`  | `^!`   | `^@`     | `^^`       | `^`\|    |
+| Operation       | Native | Maybe | Result | Wrapping | Saturating | Extending |
+|-----------------|--------|-------|--------|----------|------------|-----------|
+| Addition        | `+`    | `+?`  | `+!`   | `+%`     | `+^`       | `+`       |
+| Subtraction     | `-`    | `-?`  | `-!`   | `-%`     | `-^`       | `-`       |
+| Multiplication  | `*`    | `*?`  | `*!`   | `*%`     | `*^`       | `*`       |
+| Division        | `/`    | `/?`  | `/!`   | n/a      | n/a        | n/a       |
+| Modulo division | `%`    | `%?`  | `%!`   | n/a      | n/a        | n/a       |
+| Potentiation    | `^`    | `^?`  | `^!`   | `^%`     | `^^`       | `^`       |
 
 #### Bitwise operators
 

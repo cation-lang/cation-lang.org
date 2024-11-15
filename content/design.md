@@ -190,8 +190,12 @@ components and pattern-match against them. In other words, injection operators a
 they are the way how *if-else* statements and pattern matching is handled in the language.
 
 There are several ways of doing branching constructions using injection operators. First, one can use `value >|` in
-combination with `pattern |?` expressions to match the value against a set of patterns and handle a default variant
-with `|:`:
+combination with `pattern => code` expressions to match the value against a set of patterns and handle a default variant
+with `_ => code`:
+
+<aside>
+  <p>We use `=>` operator to signify that each pattern is in fact a natural transformation</p>
+</aside>
 
 ```
 data WorldDirection: north | south | west | east
@@ -199,9 +203,9 @@ data WorldDirection: north | south | west | east
 val sample: WorldDirection
 
 sample >|                   – match sample {
-  north |? doSomething1     –   north => {} 
-  south |? doSomething2     –   south => {}
-        |: doSomething3     –   _ => {}
+  north => doSomething1     –   north => {} 
+  south => doSomething2     –   south => {}
+      _ => doSomething3     –   _ => {}
                             – }
 ```
 
@@ -221,11 +225,11 @@ condition. Let's assume we have an expression `test` which results in a boolean 
 </aside>
 
 ```
-sample =? north             – if sample == north
+sample =?= north             – if sample == north
 |? doSomething1
 |: doSomething2             – else
 
-sample =? north             – if sample == north
+sample =?= north             – if sample == north
 |? doSomething1
 |: sample =? south          – else if sample == south
 |? doSomething2             
@@ -549,22 +553,22 @@ class ord
   
   @final
   infx `<?`: a Self, b Self -> Bool
-    ~ a >? b
+    ~ (a >? b)
 
 class eq: ord
-  infx `=?`: Self, Self -> Bool
+  infx `=?=`: Self, Self -> Bool
 
   @final
-  infx `=!`: a Self, b Self -> Bool
+  infx `=/=`: a Self, b Self -> Bool
     ~ a =? b
   
   @final
-  infx `>=?`: a Self, b Self -> Bool
-    a =? b |? true |: a >? b
+  infx `>?=`: a Self, b Self -> Bool
+    a =?= b |? true |: a >? b
   
   @final
-  infx `<=?`: a Self, b Self -> Bool
-    a =? b |? true |: a <? b
+  infx `<?=`: a Self, b Self -> Bool
+    a =?= b |? true |: a <? b
 ```
 
 <aside>
