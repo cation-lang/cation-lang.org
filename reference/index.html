@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,target-densitydpi=device-dpi" />
+
+  <title>Cation Language</title>
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/front.css">
+
+  <!-- Math rendering -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="pragma" content="no-cache">
+
+  
+<meta name="description" content="Cation Language Reference">
+
+<meta property="og:title" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://cation-lang.org/banner.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+<meta property="og:description" content="Cation Language Reference">
+<meta property="og:site_name" content="Cation Language">
+
+<meta name="twitter:site" content="@lnp_bp">
+
+</head>
+
+<body>
+<nav>
+  <a id="logo" href="/">
+    <img alt="Logo" src="/logo/cation.svg">
+  </a>
+  <ol>
+    <li><a href="/">Cation Language</a></li>
+    
+    
+    
+    
+
+  </ol>
+
+  <ul>
+    <li><a href="/overview">Overview</a></li>
+    <li class="div">|</li>
+    <li><a href="/design">Design</a></li>
+    <li class="div">|</li>
+    <li><a href="/reference">Reference</a></li>
+    <li class="div">|</li>
+    <li><a href="/examples">Examples</a></li>
+    <!-- li class="div">|</li>
+    <li><a href="/try">Try</a></li -->
+    <!-- li class="div">|</li>
+    <li><a href="/community">Community</a></li -->
+  </ul>
+</nav>
+
+<main>
+  
+
+    <nav>
+        <ol>
+            
+            
+            <li>
+                <a href="https://cation-lang.org/reference/#lexical-structure">Lexical structure</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#whitespace-and-comments">Whitespace and comments</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#identifiers">Identifiers</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#keywords">Keywords</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#literals">Literals</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#integer-literals">Integer literals</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#floating-point-literals">Floating-point literals</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#character-literal">Character literal</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#string-literals">String literals</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#binary-data-literals">Binary data literals</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#date-and-time-literals">Date-and-time literals</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#custom-literals">Custom literals</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#syntactic-constructs">Syntactic constructs</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#specifiers">Specifiers</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#projections">Projections</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#injections">Injections</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#annotations">Annotations</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/reference/#operators">Operators</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#built-in">Built-in</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#categorical-limits">Categorical limits</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#mappings-morphisms-and-functors">Mappings (morphisms and functors)</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#natural-transformation-mapping">Natural transformation mapping</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#iteration-operators">Iteration operators</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#lambda-operator">Lambda operator</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#standard-library">Standard library</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#monadic-operators">Monadic operators</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#arithmetic-operators">Arithmetic operators</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#bitwise-operators">Bitwise operators</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#boolean-logic-operators">Boolean logic operators</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#ternary-logic-operators">Ternary logic operators</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#string-operators">String operators</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/reference/#types">Types</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#built-in-1">Built-in</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#initial-and-terminal">Initial and terminal</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#integers">Integers</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#floats">Floats</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#character">Character</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#ranges">Ranges</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#standard-library-1">Standard library</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#small-integers">Small integers</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#string-types">String types</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#monads">Monads</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/reference/#statements">Statements</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#expressions">Expressions</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#lambda-expressions">Lambda expressions</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#collection-comprehension">Collection comprehension</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#range-expressions">Range expressions</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#context-value">Context value</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#result-value">Result value</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#patterns">Patterns</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#specifiers-1">Specifiers</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#function">Function</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#data-type">Data type</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#data-class">Data class</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#value-specifier">Value specifier</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#lambda-specifier">Lambda specifier</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/reference/#generics">Generics</a>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/reference/#annotations-1">Annotations</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#attributes">Attributes</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#id">@id</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#alias">@alias</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#final">@final</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#override">@override</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#private">@private</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/reference/#tags">Tags</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#co-product-variant-tags">Co-product variant tags</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/reference/#type-tags">Type tags</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+        </ol>
+    </nav>
+
+
+<article class="page">
+    <h1 id="cation-language-reference">Cation Language Reference</h1>
+<h2 id="lexical-structure">Lexical structure</h2>
+<p>The lexical structure of Cation describes what sequence of characters form valid tokens of the language. These valid
+tokens form the lowest-level building blocks of the language and are used to describe the rest of the language in
+subsequent chapters. A token consists of an identifier, keyword, punctuation, literal, or operator.</p>
+<p>In most cases, tokens are generated from the characters of a Cation source file by considering the longest possible
+substring from the input text, within the constraints of the grammar that are specified below. This behavior is referred
+to as longest match or maximal munch.</p>
+<h3 id="whitespace-and-comments">Whitespace and comments</h3>
+<p>Whitespace has three uses:</p>
+<ul>
+<li>to separate tokens in the source file;</li>
+<li>to separate statements with indentation;</li>
+<li>to distinguish between prefix and infix operators (see Operators);</li>
+</ul>
+<p>The following characters are considered whitespace: space (U+0020), line feed (U+000A), carriage return (U+000D),
+horizontal tab (U+0009), vertical tab (U+000B), form feed (U+000C) and null (U+0000).</p>
+<p>Comments are treated as whitespace by the compiler. Single line comments begin with <code>--</code> and continue until a line feed
+(U+000A) or carriage return (U+000D). Multiline comments begin with <code>{-</code> and end with <code>-}</code>. Nesting multiline comments
+is allowed, but the comment markers must be balanced.</p>
+<h3 id="identifiers">Identifiers</h3>
+<p>Identifiers begin with an uppercase or lowercase letter A through Z, an underscore (<code>_</code>), a noncombining alphanumeric
+Unicode character in the Basic Multilingual Plane, or a character outside the Basic Multilingual Plane that isn’t in
+a Private Use Area. After the first character, digits and combining Unicode characters are also allowed.</p>
+<p>To use ASCII punctuation characters in an identifier, or a reserved word, put a backtick (<code>`</code>) before and after it.
+For example, <code>data</code> isn’t a valid identifier, but <code>`data`</code> is valid. The backticks aren’t considered part of the
+identifier; <code>`x`</code> and <code>x</code> has the same meaning.</p>
+<h3 id="keywords">Keywords</h3>
+<p>The following keywords are reserved and can’t be used as identifiers, unless they’re escaped with backticks, as
+described above in <a href="https://cation-lang.org/reference/#identifiers">Identifiers</a>. Keywords other than <code>let</code> and <code>lambda</code> can be used as field or variant
+names in data types, as parameter names in a function declaration or function call without being escaped with backticks.</p>
+<ul>
+<li><code>data</code>: defines new data type</li>
+<li><code>class</code>: defines a new data type class</li>
+<li><code>fx</code>: defines new function (prefix function)</li>
+<li><code>infx</code>: defines new infix function</li>
+<li><code>lambda</code>: defines a lambda function</li>
+<li><code>alias</code>: defines a new alias for a function</li>
+<li><code>let</code>: defines new value</li>
+</ul>
+<p>The following tokens are reserved as built-in operators and can’t be used in custom operators: <code>(</code>, <code>)</code>, <code>{</code>, <code>}</code>,
+<code>[</code>, <code>]</code>, <code>.</code>, <code>,</code>, <code>:</code>, <code>;</code>, <code>#</code>, <code>=&gt;</code>, <code>-&gt;</code>, <code>&lt;-</code>, <code>&lt;|</code>, <code>|&gt;</code>, <code>&gt;|</code>, <code>|?</code>, <code>|:</code>, <code>.\</code>, <code>`</code>.</p>
+<h3 id="literals">Literals</h3>
+<p>A <dfn>literal</dfn> is the source code representation of a value of a type, such as a number or string.</p>
+<p>The following are examples of literals:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>42               -- Integer literal
+</span><span>42#U8            -- Tagged integer literal
+</span><span>3.14159          -- Floating-point literal
+</span><span>&#39;A&#39;              -- Character literal
+</span><span>&quot;Hello, world!&quot;  -- String literal
+</span></code></pre>
+<p>A literal without a <a href="https://cation-lang.org/reference/#tags">tag</a> doesn’t have a type on its own. Instead, Cation’s type inference attempts to infer
+a type for the literal. For example, in the declaration <code>let x: U8 := 42</code>, Cation uses the explicit type information
+(<code>: U8</code>) to infer that the type of the integer literal <code>42</code> is <code>U8</code>. If there isn’t suitable type information available,
+Cation infers that the literal’s type is one of the default literal built-in Cation types listed in the table below.</p>
+<table><thead><tr><th style="text-align: left">Literal</th><th style="text-align: right">Default type</th></tr></thead><tbody>
+<tr><td style="text-align: left">Integer</td><td style="text-align: right">U64</td></tr>
+<tr><td style="text-align: left">Float</td><td style="text-align: right">F64</td></tr>
+<tr><td style="text-align: left">Character</td><td style="text-align: right">Char</td></tr>
+<tr><td style="text-align: left">String</td><td style="text-align: right">String</td></tr>
+</tbody></table>
+<p>When specifying the type annotation for a literal value with a tag, the annotation’s type must be a type that can be
+instantiated from that literal value.</p>
+<p>For example, in the declaration <code>let str := "Hello, world"</code>, the default inferred type of the string literal
+<code>"Hello, world"</code> is <code>String</code>. This can be changed by using type annotation or tag: both
+<code>let str: AsciiString := "Hello, world"</code> and <code>let str := "Hello, world"#AsciiString</code> will be inferred to <code>AsciiString</code>
+type instead of <code>String</code>.</p>
+<h4 id="integer-literals">Integer literals</h4>
+<p><dfn>Integer literals</dfn> represent integer values of some precision. By default, integer literals are expressed in
+decimal; you can specify an alternate base using a prefix:</p>
+<ul>
+<li>binary literals begin with 0b,</li>
+<li>octal literals begin with 0o,</li>
+<li>and hexadecimal literals begin with 0x.</li>
+</ul>
+<p>Decimal literals contain the digits 0 through 9. Binary literals contain 0 and 1, octal literals contain 0 through 7,
+and hexadecimal literals contain 0 through 9 as well as A through F in upper- or lowercase.</p>
+<p>Negative integers literals are expressed by prepending a minus sign (-) to an integer literal, as in <code>-42</code>.</p>
+<p>Underscores (<code>_</code>) are allowed between digits for readability, but they’re ignored and therefore don’t affect the value of
+the literal. Integer literals can begin with leading zeros (<code>0</code>), but they’re likewise ignored and don’t affect the base
+or value of the literal.</p>
+<p>Unless otherwise specified, the default inferred type of an integer literal is the Cation built-in type <code>U64</code>.
+Cation has built-in types for various sizes of signed, unsigned and built-in integers, as described in
+<a href="https://cation-lang.org/reference/#integers">Integers</a>.</p>
+<h4 id="floating-point-literals">Floating-point literals</h4>
+<p><dfn>Floating-point literals</dfn> represent floating-point values of some precision.</p>
+<p>By default, floating-point literals are expressed in decimal (with no prefix), but they can also be expressed in
+hexadecimal (with a 0x prefix).</p>
+<p>Decimal floating-point literals consist of a sequence of decimal digits followed by either a decimal fraction, a decimal
+exponent, or both. The decimal fraction consists of a decimal point (<code>.</code>) followed by a sequence of decimal digits. The
+exponent consists of an upper- or lowercase <code>e</code> prefix followed by a sequence of decimal digits that indicates what
+power of 10 the value preceding the <code>e</code> is multiplied by. For example, <code>1.25e2</code> represents 1.25 x 10², which evaluates
+to 125.0. Similarly, <code>1.25e-2</code> represents 1.25 x 10⁻², which evaluates to 0.0125.</p>
+<p>Hexadecimal floating-point literals consist of a 0x prefix, followed by an optional hexadecimal fraction, followed by a
+hexadecimal exponent. The hexadecimal fraction consists of a decimal point followed by a sequence of hexadecimal digits.
+The exponent consists of an upper- or lowercase p prefix followed by a sequence of decimal digits that indicates what
+power of 2 the value preceding the p is multiplied by. For example, <code>0xFp2</code> represents 15 x 2², which evaluates to 60.
+Similarly, <code>0xFp-2</code> represents 15 x 2⁻², which evaluates to 3.75.</p>
+<p>Negative floating-point literals are expressed by prepending a minus sign (-) to a floating-point literal, as in <code>-42.5</code>.</p>
+<p>Underscores (<code>_</code>) are allowed between digits for readability, but they’re ignored and therefore don’t affect the value
+of the literal. Floating-point literals can begin with leading zeros (<code>0</code>), but they’re likewise ignored and don’t
+affect the base or value of the literal.</p>
+<p>Unless otherwise specified, the default inferred type of a floating-point literal is the Cation built-in <code>F64</code>, which
+represents a 64-bit floating-point number.</p>
+<h4 id="character-literal">Character literal</h4>
+<h4 id="string-literals">String literals</h4>
+<h4 id="binary-data-literals">Binary data literals</h4>
+<h4 id="date-and-time-literals">Date-and-time literals</h4>
+<h4 id="custom-literals">Custom literals</h4>
+<h3 id="syntactic-constructs">Syntactic constructs</h3>
+<h4 id="specifiers">Specifiers</h4>
+<h4 id="projections">Projections</h4>
+<p>Function calls are made using projection operator expressed as a space (<code> </code>); i.e. for a prefix function <code>fn</code> the way
+to call it is to write <code>fn args</code>, where <code>args</code> can be a named or unnamed data type matching arguments in the function
+declaration. They can be kapt in <code>(</code>..<code>)</code>, or without them, but if multiple arguments are present they must be separated
+from each other with a comma <code>,</code> (product operator which composes arguments into a data type). Thus, a function always
+takes a single argument, which can be a named or unnamed data type.</p>
+<p>Prefix functions may be called using an infix notation: <code>(args).fn</code>, or via <code>arg0.fn arg1, .., argLast</code> notation.</p>
+<p>Call of an infix function <code>infn</code> is <code>arg0 infn arg1, .., argLast</code>. It can be reverted via use of
+<code>(infn arg0, .., argLast)</code> or <code>(infn) arg0, .., argLast</code> forms.</p>
+<h4 id="injections">Injections</h4>
+<p>Injections are branching operators, which allow code execution to branch execution basing on a value of a co-product
+type. They are either pattern matching (an equivalent of Rust <code>match</code> and Haskell <code>case</code>), or a boolean-test based.</p>
+<p>Pattern matching is done with <code>&gt;|</code> infix operator, which takes a value of a co-product type on the left side, and a
+set of natural transformations matching each of the injections on the right:</p>
+<pre data-lang="idris" style="background-color:#2b303b;color:#c0c5ce;" class="language-idris "><code class="language-idris" data-lang="idris"><span>value &gt;|
+</span><span>  pattern1 =&gt; code
+</span><span>  pattern2 =&gt; code
+</span><span>  _ =&gt; code -- default match
+</span></code></pre>
+<p>Branching based on the boolean conditions uses <code>.. |? .. |: ..</code> operator, which is also a ternary operator,
+corresponding to <code>if .. then .. else</code> construction. It also has a form of
+<code>condition1 |? statement1 |: condition2 |? statement2 |: statementElse</code>, corresponding to
+<code>if condition1 then statement1 elseIf condition2 then statement2 else statementElse</code>.</p>
+<h4 id="annotations">Annotations</h4>
+<h2 id="operators">Operators</h2>
+<h3 id="built-in">Built-in</h3>
+<h4 id="categorical-limits">Categorical limits</h4>
+<p>Operator <code>,</code> is a categorical product operator. Operator <code>|</code> is categorical sum operator</p>
+<h4 id="mappings-morphisms-and-functors">Mappings (morphisms and functors)</h4>
+<p>Operators <code>-&gt;</code> <code>&lt;-</code> define functors: they do project an object or each of
+objects in a category (value, collection, iterator or a data type) to a
+different object or a category.</p>
+<p>For instance, when used in function definition, it projects all possible
+values of a function input as data type (which may be a composite anonymous
+type) to the set of return values defined by the return data type:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>fx some: input Type -&gt; output Type
+</span></code></pre>
+<p>Operator <code>-&gt;</code> is also used inside collections of key-value maps, separating
+keys and their corresponding values.</p>
+<h4 id="natural-transformation-mapping">Natural transformation mapping</h4>
+<p>Operator <code>=&gt;</code> is used to introduce generic arguments as a natural transformation.</p>
+<h4 id="iteration-operators">Iteration operators</h4>
+<p>Operators <code>|&gt;</code> and <code>&lt;|</code> used to build iterators: it maps of the items
+of an iterable collection into a new value:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>x &lt;- 0..&lt;100 |&gt; mulTry x, 2
+</span></code></pre>
+<p>which will result in a new iterator over doubled values in the range from
+0 to 99.</p>
+<p>One may skip te initial <code>x &lt;-</code> assignment; in this case the input value of
+the current iteration will be put into the first argument of the next expression:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>0..&lt;100 |&gt; mulTry 2
+</span></code></pre>
+<p>one may also use the context operator <code>_</code>:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>0..&lt;100 |&gt; _ mulTry 2
+</span></code></pre>
+<p>or reverse the order of the expressions:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>mulTry 2 &lt;| 0..&lt;100
+</span></code></pre>
+<h4 id="lambda-operator">Lambda operator</h4>
+<p><dfn>Lambda operator</dfn> <code>.\</code>, with alias <code>λ</code> (Greek letter lambda) is a shorthand for creating lambda expressions.
+It has four forms:</p>
+<ul>
+<li>single-line, end of line (trailing lambda):<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>.\args -&gt; ret: expr
+</span></code></pre>
+</li>
+<li>single-line, alongside other expressions:<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>.\(args -&gt; ret: expr), _
+</span></code></pre>
+</li>
+<li>multi-line, end of line (trailing lambda block):<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>.\args -&gt; ret
+</span><span>  expr1
+</span><span>  expr2
+</span><span>  -- ...
+</span></code></pre>
+</li>
+<li>multi-line, alongside other expressions:<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>.\(args -&gt; ret
+</span><span>  expr1
+</span><span>  expr2
+</span><span>  -- ...
+</span><span>), _
+</span></code></pre>
+</li>
+</ul>
+<p>All forms may skip the return type <code>-&gt; ret</code> part; in this case the return type is inferred by the compiler:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>.\args: expr
+</span><span>
+</span><span>.\(args: expr), _
+</span><span>
+</span><span>.\args
+</span><span>  expr1
+</span><span>  expr2
+</span><span>  -- ...
+</span><span>
+</span><span>.\(args
+</span><span>  expr1
+</span><span>  expr2
+</span><span>  -- ...
+</span><span>), _
+</span></code></pre>
+<p>If the lambda expression has no inputs, lambda operator must be simply followed by the expression itself with no
+colon used:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>.\expr
+</span><span>
+</span><span>.\(expr), _
+</span><span>
+</span><span>.\
+</span><span>  expr1
+</span><span>  expr2
+</span><span>  -- ...
+</span><span>
+</span><span>.\(
+</span><span>  expr1
+</span><span>  expr2
+</span><span>  -- ...
+</span><span>), _
+</span></code></pre>
+<p>See also <a href="https://cation-lang.org/reference/#lambda-specifier">lambda specifier</a>.</p>
+<h3 id="standard-library">Standard library</h3>
+<h4 id="monadic-operators">Monadic operators</h4>
+<p>Operators <code>!</code>, <code>!!</code>, <code>?</code> and <code>??</code> are used with monad types (like
+optionals/maybes or result types). First, <code>!</code> and <code>?</code> marks a part of the
+expression which should be tested against unwrapped monad value; if the unwrap
+procedure fails, it will default to the expression put after <code>!!</code> or <code>??</code>
+operator at the end of the same line. For instance, if <code>value</code> is of <code>Maybe</code>
+type we can write <code>value ?? 0</code>; or <code>value !! noValue</code>; the first will default
+expression to zero, and the second convert return type of the function to a
+result type, create an enum <code>Error</code> with variant <code>noValue</code> and will return
+that value if the maybe monad in <code>value</code> doesn't contain an actual value.</p>
+<h4 id="arithmetic-operators">Arithmetic operators</h4>
+<p>Unlike other languages, Cation requires to explicitly handle overflow and underflow conditions in arithmetics, as well
+as zero divisions, which is required for termination analysis and helps in avoiding undefined behaviours. Thus, each of
+arithmetic operators has multiple forms, handling overflows and underflows differently. This approach used in Cation
+is named <dfn>checked arithmetics</dfn>.</p>
+<p>To construct arithmetic operators, a symbol representing mathematical operation (like <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, <code>^</code>) is
+postfixed with a symbol representing the way of handling overflow, underflow or zero divisions. Such symbols are:</p>
+<ul>
+<li><code>?</code> for converting the result of the operation into <code>Maybe</code> monad;</li>
+<li><code>!</code> for converting the result of the operation into <code>Result::error</code> monad variant with details on specific condition
+which has occurred;</li>
+<li><code>%</code> for wrapping a value in case of overflow (modulo-arithmetic) and returning <code>ArRes</code> monad;</li>
+<li><code>^</code> for saturating a value with a maximum possible value in case of overflow;</li>
+<li>with no postfix for extending the result type to the next bit dimension so it always fits.</li>
+</ul>
+<p>Additionally, Cation allows <dfn>native arithmetic operations</dfn> when an operation itself and the resulting type
+guarantees impossibility of overflow or other exceptional conditions. These operations are:</p>
+<ul>
+<li>unsigned, signed and non-zero integer addition with <code>+</code> operator, when the bit dimension of the resulting integer type
+is equal to or exceeds the sum of the bit dimensions of the inputs;</li>
+<li>signed integer subtraction with <code>-</code> operator, when the bit dimension of the resulting integer type is equal to or
+exceeds the sum of the bit dimensions of the inputs;</li>
+<li>unsigned, signed and non-zero integer multiplication with <code>*</code> operator, when the dimension of the resulting integer
+type is equal to or exceeds the product of the bit dimensions of the inputs;</li>
+<li>division with <code>/</code> operator of non-zero unsigned integers;</li>
+<li>modulo division with <code>%</code> operator of non-zero unsigned integers;</li>
+<li>unsigned, signed and non-zero potentiation with <code>^</code> operator when the bit dimensions of the resulting integer type
+exceeds</li>
+</ul>
+<p>Thus, the resulting table of the arithmetic operations is the following:</p>
+<table><thead><tr><th>Operation</th><th>Native</th><th>Maybe</th><th>Result</th><th>Wrapping</th><th>Saturating</th><th>Extending</th></tr></thead><tbody>
+<tr><td>Addition</td><td><code>+</code></td><td><code>+?</code></td><td><code>+!</code></td><td><code>+%</code></td><td><code>+^</code></td><td><code>+</code></td></tr>
+<tr><td>Subtraction</td><td><code>-</code></td><td><code>-?</code></td><td><code>-!</code></td><td><code>-%</code></td><td><code>-^</code></td><td><code>-</code></td></tr>
+<tr><td>Multiplication</td><td><code>*</code></td><td><code>*?</code></td><td><code>*!</code></td><td><code>*%</code></td><td><code>*^</code></td><td><code>*</code></td></tr>
+<tr><td>Division</td><td><code>/</code></td><td><code>/?</code></td><td><code>/!</code></td><td>n/a</td><td>n/a</td><td>n/a</td></tr>
+<tr><td>Modulo division</td><td><code>%</code></td><td><code>%?</code></td><td><code>%!</code></td><td>n/a</td><td>n/a</td><td>n/a</td></tr>
+<tr><td>Potentiation</td><td><code>^</code></td><td><code>^?</code></td><td><code>^!</code></td><td><code>^%</code></td><td><code>^^</code></td><td><code>^</code></td></tr>
+</tbody></table>
+<h4 id="bitwise-operators">Bitwise operators</h4>
+<h4 id="boolean-logic-operators">Boolean logic operators</h4>
+<h4 id="ternary-logic-operators">Ternary logic operators</h4>
+<h4 id="string-operators">String operators</h4>
+<h2 id="types">Types</h2>
+<h3 id="built-in-1">Built-in</h3>
+<h4 id="initial-and-terminal">Initial and terminal</h4>
+<h4 id="integers">Integers</h4>
+<p>Integers come in signed, unsigned and non-zero unsigned classes, each of which contains types with different bit length.</p>
+<p>Supported bit length for <strong>integer types</strong> are:</p>
+<table><thead><tr><th>Bits</th><th>Bytes</th><th style="text-align: right">Unsigned</th><th style="text-align: right">Signed</th><th style="text-align: right">Non-zero</th><th>C equivalents</th><th>Rust equivalents</th></tr></thead><tbody>
+<tr><td>8 bits</td><td>1 byte</td><td style="text-align: right"><code>U8</code></td><td style="text-align: right"><code>I8</code></td><td style="text-align: right"><code>N8</code></td><td><code>(unsigned)</code> <code>char</code></td><td><code>u8</code>, <code>i8</code>, <code>NonZeroU8</code></td></tr>
+<tr><td>16 bits</td><td>2 bytes</td><td style="text-align: right"><code>U16</code></td><td style="text-align: right"><code>I16</code></td><td style="text-align: right"><code>N16</code></td><td><code>(unsigned)</code> <code>short</code></td><td><code>u16</code>, <code>i16</code>, <code>NonZeroU16</code></td></tr>
+<tr><td>24 bits</td><td>3 bytes</td><td style="text-align: right"><code>U24</code></td><td style="text-align: right"><code>I24</code></td><td style="text-align: right"><code>N24</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>32 bits</td><td>4 bytes</td><td style="text-align: right"><code>U32</code></td><td style="text-align: right"><code>I32</code></td><td style="text-align: right"><code>N32</code></td><td><code>(unsigned)</code> <code>long</code></td><td><code>u32</code>, <code>i32</code>, <code>NonZeroU32</code></td></tr>
+<tr><td>40 bits</td><td>5 bytes</td><td style="text-align: right"><code>U40</code></td><td style="text-align: right"><code>I40</code></td><td style="text-align: right"><code>N40</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>48 bits</td><td>6 bytes</td><td style="text-align: right"><code>U48</code></td><td style="text-align: right"><code>I48</code></td><td style="text-align: right"><code>N48</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>56 bits</td><td>7 bytes</td><td style="text-align: right"><code>U56</code></td><td style="text-align: right"><code>I56</code></td><td style="text-align: right"><code>N56</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>64 bits</td><td>8 bytes</td><td style="text-align: right"><code>U64</code></td><td style="text-align: right"><code>I64</code></td><td style="text-align: right"><code>N64</code></td><td><code>(unsigned)</code> <code>long long</code></td><td><code>u64</code>, <code>i64</code>, <code>NonZeroU64</code></td></tr>
+<tr><td>80 bits</td><td>10 bytes</td><td style="text-align: right"><code>U80</code></td><td style="text-align: right"><code>I80</code></td><td style="text-align: right"><code>N80</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>96 bits</td><td>12 bytes</td><td style="text-align: right"><code>U96</code></td><td style="text-align: right"><code>I96</code></td><td style="text-align: right"><code>N96</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>112 bits</td><td>14 bytes</td><td style="text-align: right"><code>U112</code></td><td style="text-align: right"><code>I112</code></td><td style="text-align: right"><code>N112</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>128 bits</td><td>16 bytes</td><td style="text-align: right"><code>U128</code></td><td style="text-align: right"><code>I128</code></td><td style="text-align: right"><code>N128</code></td><td>n/a</td><td><code>u128</code>, <code>i128</code>, <code>NonZeroU128</code></td></tr>
+<tr><td>256 bits</td><td>32 bytes</td><td style="text-align: right"><code>U256</code></td><td style="text-align: right"><code>I256</code></td><td style="text-align: right"><code>N256</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>512 bits</td><td>64 bytes</td><td style="text-align: right"><code>U512</code></td><td style="text-align: right"><code>I512</code></td><td style="text-align: right"><code>N512</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>1024 bits</td><td>128 bytes</td><td style="text-align: right"><code>U1024</code></td><td style="text-align: right"><code>I1024</code></td><td style="text-align: right"><code>N1024</code></td><td>n/a</td><td>n/a</td></tr>
+</tbody></table>
+<p>All integer types in Cation are co-product types, made with all their allowed values. This makes it possible to use
+<a href="https://cation-lang.org/reference/#injections">injection operators</a> to match them against patterns and ranges.</p>
+<h4 id="floats">Floats</h4>
+<p>Supported bit length and encodings for <strong>floating-point types</strong> are:</p>
+<table><thead><tr><th>Type name</th><th>Bytes</th><th>Encoding</th><th>Underlynig Rust type</th></tr></thead><tbody>
+<tr><td><code>F16B</code></td><td>2</td><td>bfloat16</td><td><code>bfloat::bf16</code></td></tr>
+<tr><td><code>F16</code></td><td>2</td><td>IEEE Half</td><td><code>apfloat::ieee::Half</code></td></tr>
+<tr><td><code>F32</code></td><td>4</td><td>IEEE Single</td><td><code>apfloat::ieee::Single</code></td></tr>
+<tr><td><code>F64</code></td><td>8</td><td>IEEE Double</td><td><code>apfloat::ieee::Double</code></td></tr>
+<tr><td><code>F80</code></td><td>10</td><td>IEEE X87 Extended</td><td><code>apfloat::ieee::X87DoubleExtended</code></td></tr>
+<tr><td><code>F128</code></td><td>16</td><td>IEEE Quad</td><td><code>apfloat::ieee::Quad</code></td></tr>
+<tr><td><code>F256</code></td><td>32</td><td>IEEE Oct</td><td><code>apfloat::ieee::Oct</code></td></tr>
+</tbody></table>
+<h4 id="character">Character</h4>
+<p>Cation has just a single built-in Unicode character type <code>Char</code>. It is the only of the built-in types which has
+variable bit length, due to the Unicode standard. Its length varies from 8 bits to 32 bits; with 8 bit step.</p>
+<h4 id="ranges">Ranges</h4>
+<p><strong>Range types</strong> simplify creation of <a href="https://cation-lang.org/reference/#collection-comprehension">collection types</a>, as well as are an efficient tool for
+<a href="https://cation-lang.org/reference/#iteration-operators">cycles and iterators</a>. Cation comes with the following set of range types, each of which can be
+instantiated using a shorthand <a href="https://cation-lang.org/reference/#range-expressions">range expressions</a>.</p>
+<table><thead><tr><th>Type name</th><th>Range operator</th></tr></thead><tbody>
+<tr><td><code>RangeAll</code></td><td><code>..</code></td></tr>
+<tr><td><code>RangeTo</code></td><td><code>..&lt;N</code></td></tr>
+<tr><td><code>RangeToIncl</code></td><td><code>..=N</code></td></tr>
+<tr><td><code>RangeFrom</code></td><td><code>M..</code></td></tr>
+<tr><td><code>RangeFromTo</code></td><td><code>M..&lt;N</code></td></tr>
+</tbody></table>
+<h3 id="standard-library-1">Standard library</h3>
+<h4 id="small-integers">Small integers</h4>
+<h4 id="string-types">String types</h4>
+<h4 id="monads">Monads</h4>
+<h2 id="statements">Statements</h2>
+<h3 id="expressions">Expressions</h3>
+<p>Expressions are separated either with a line feed character (U+000A), or with a semicolon <code>;</code> if put on one line one
+after the other.</p>
+<h4 id="lambda-expressions">Lambda expressions</h4>
+<p>Lambda expressions have two forms: <a href="https://cation-lang.org/reference/#lambda-operator">operator</a> and <a href="https://cation-lang.org/reference/#lambda-specifier">specifier</a>.</p>
+<h4 id="collection-comprehension">Collection comprehension</h4>
+<p>Grouping operator is <code>(</code>..<code>)</code> constructs an anonymous data type.</p>
+<p>Operators <code>[</code>..<code>]</code>, <code>{</code>..<code>}</code> and <code>{</code>..<code>-&gt;</code>..<code>}</code> construct collection types.</p>
+<h4 id="range-expressions">Range expressions</h4>
+<p>Operators <code>..=</code> and <code>..&lt;</code> help to create iterators or collections over
+ranges. They may be combined with a step size information in form of</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>0&lt;=2x&lt;=100
+</span></code></pre>
+<p>where instead of 2 any other constant can be given</p>
+<h4 id="context-value">Context value</h4>
+<p>Operator <code>_</code> means context default value, like the one kept in a stack from
+a previous function call or a decomposition</p>
+<h4 id="result-value">Result value</h4>
+<p>Operator <code>$</code> means <q>result of the current expression or a function</q>. It
+can be used to assign an output value of a function, like in <code>$ &lt;- value</code>,
+or to access the results within iterations from the previous cycles of
+iterations, like with <code>$-1</code>, accessing the previous iteration result, or
+<code>$3</code> accessing the result of the third iteration from the beginning.</p>
+<h4 id="patterns">Patterns</h4>
+<h3 id="specifiers-1">Specifiers</h3>
+<h4 id="function">Function</h4>
+<h4 id="data-type">Data type</h4>
+<h4 id="data-class">Data class</h4>
+<h4 id="value-specifier">Value specifier</h4>
+<h4 id="lambda-specifier">Lambda specifier</h4>
+<p><dfn>Lambda specifier</dfn> starts with a <code>lambda</code> keyword, followed by a value name, colon, argument and return type
+definition and body:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>val local: U8 = random
+</span><span>lambda sq: x U8 -&gt; U32
+</span><span>    pow 2 + local
+</span></code></pre>
+<p>As any other specifier it can be put into a single line:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>val local: U8 = random
+</span><span>lambda sq: x U8 -&gt; U32 := pow 2 + local
+</span></code></pre>
+<p>See also <a href="https://cation-lang.org/reference/#lambda-operator">lambda operator</a>.</p>
+<h2 id="generics">Generics</h2>
+<h2 id="annotations-1">Annotations</h2>
+<h3 id="attributes">Attributes</h3>
+<p>Statements starting with <code>@</code> are used to add attributes other Cation statements. Attributes are a way of
+metaprogramming: they are similar to procedural macros in Rust or annotations in Java.</p>
+<h4 id="id"><code>@id</code></h4>
+<h4 id="alias"><code>@alias</code></h4>
+<h4 id="final"><code>@final</code></h4>
+<h4 id="override"><code>@override</code></h4>
+<h4 id="private"><code>@private</code></h4>
+<h3 id="tags">Tags</h3>
+<p>Operator <code>#</code> adds context tags to the values; for instance it is used to add
+integer tag to co-product type variants (like in <code>data Bool: false#0 | true#1</code>)
+or to enforce some literal to be of a specific data type (like in <code>..100#U8</code>,
+where the range is enforced to be over <code>U8</code> type).</p>
+<h4 id="co-product-variant-tags">Co-product variant tags</h4>
+<h4 id="type-tags">Type tags</h4>
+
+</article>
+
+</main>
+
+<footer>
+  <p>
+    Created &amp; maintained by <a href="https://www.ubideco.org">UBIDECO Labs</a><br/>
+    See a bug? <a href="https://github.com/cation-lang/cation-lang.org/issues/new">File an issue!</a>
+  </p>
+  <div>
+    <a href="https://x.com/lnp_bp"><img src="/social/twitter.svg" alt="twitter logo" title="Twitter, officially known as X"></a>
+    <a href="https://t.me/cation_lang"><img src="/social/telegram.svg" alt="telegram logo" title="Telegram"></a>
+    <a href="https://github.com/cation-lang/cation-lang"><img src="/social/github.svg" alt="github logo" title="GitHub"></a>
+  </div>
+  <p>We do not use cookies or any other tracking technology on visitors to this site</p>
+</footer>
+
+</body>
+</html>

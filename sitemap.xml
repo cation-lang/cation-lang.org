@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://cation-lang.org/</loc>
+    </url>
+    <url>
+        <loc>https://cation-lang.org/category/</loc>
+    </url>
+    <url>
+        <loc>https://cation-lang.org/design/</loc>
+    </url>
+    <url>
+        <loc>https://cation-lang.org/examples/</loc>
+    </url>
+    <url>
+        <loc>https://cation-lang.org/overview/</loc>
+    </url>
+    <url>
+        <loc>https://cation-lang.org/reference/</loc>
+    </url>
+    <url>
+        <loc>https://cation-lang.org/stdlib/</loc>
+    </url>
+    <url>
+        <loc>https://cation-lang.org/try/</loc>
+    </url>
+</urlset>

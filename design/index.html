@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,target-densitydpi=device-dpi" />
+
+  <title>Cation Language</title>
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/front.css">
+
+  <!-- Math rendering -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="pragma" content="no-cache">
+
+  
+<meta name="description" content="Cation Language Design">
+
+<meta property="og:title" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://cation-lang.org/banner.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+<meta property="og:description" content="Cation Language Design">
+<meta property="og:site_name" content="Cation Language">
+
+<meta name="twitter:site" content="@lnp_bp">
+
+</head>
+
+<body>
+<nav>
+  <a id="logo" href="/">
+    <img alt="Logo" src="/logo/cation.svg">
+  </a>
+  <ol>
+    <li><a href="/">Cation Language</a></li>
+    
+    
+    
+    
+
+  </ol>
+
+  <ul>
+    <li><a href="/overview">Overview</a></li>
+    <li class="div">|</li>
+    <li><a href="/design">Design</a></li>
+    <li class="div">|</li>
+    <li><a href="/reference">Reference</a></li>
+    <li class="div">|</li>
+    <li><a href="/examples">Examples</a></li>
+    <!-- li class="div">|</li>
+    <li><a href="/try">Try</a></li -->
+    <!-- li class="div">|</li>
+    <li><a href="/community">Community</a></li -->
+  </ul>
+</nav>
+
+<main>
+  
+
+    <nav>
+        <ol>
+            
+            
+            <li>
+                <a href="https://cation-lang.org/design/#language-features">Language features</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/design/#mutability-and-racing-conditions">Mutability and racing conditions</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/design/#exception-handling">Exception handling</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/design/#memory-addressing">Memory addressing</a>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/design/#program-structure">Program structure</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/design/#specifiers">Specifiers</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/design/#expressions">Expressions</a>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/design/#language-syntax">Language syntax</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/design/#fundamental-operators">Fundamental operators</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#categorical-limits">Categorical limits</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#projection-operators">Projection operators</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#injection-operators">Injection operators</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#composition-operators">Composition operators</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#iterating-operators">Iterating operators</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#tags-and-annotations">Tags and annotations</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/design/#data-types">Data types</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#built-in-types">Built-in types</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#data-type-composition">Data type composition</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#iterable-collections">Iterable collections</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#standard-library-types">Standard library types</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/design/#lambda-expressions">Lambda expressions</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/design/#generics">Generics</a>
+                        
+                        <ol>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#type-classes">Type classes</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#generic-arguments">Generic arguments</a>
+                            </li>
+                            
+                            <li>
+                                <a href="https://cation-lang.org/design/#confinement-constraints">Confinement constraints</a>
+                            </li>
+                            
+                        </ol>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/design/#computational-parallelism">Computational parallelism</a>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/design/#language-comparison">Language comparison</a>
+                
+            </li>
+            
+        </ol>
+    </nav>
+
+
+<article class="page">
+    <h1 id="cation-language-design">Cation Language Design</h1>
+<p>We design Cation as a pure categorical programming language for practical tasks.</p>
+<p>In real-world computing, unlike mathematics, everything is bounded: resources, computational time; there are no
+infinities, no arbitrary-precision rational or irrational numbers (but just their partial estimates). Most of existing
+programming languages ignored this simple fact, resulting in hundreds of pitfalls and <q>footguns</q> for the developers.
+Cation tries to avoid this, and ensures that everything is bound and measurable at compile-time. It does this using
+instruments of category theory, and as a result each Cation program can pass a termination analysis and formally
+prove maximum amount of resources it takes to execute.</p>
+<h2 id="language-features">Language features</h2>
+<p>Cation is made for practical tasks: we attempt to make it easy-to-read and write, avoiding as much of boilerplate code
+as possible. There are just five built-in keywords; monadic programming is effortless: one does not need to declare set
+of possible error types ahead. Cation has indentation-based syntax, which makes it much more visually readable and sets
+it aside from curly-braced languages like C/C++, Rust, Scala... and makes it similar to Idris, Haskell, Python.</p>
+<p>It has the following distinguishing features, which taken together set it aside from other existing languages:</p>
+<ol>
+<li>Termination analysis and eager evaluation, implying compile-time-defined bounds for data types</li>
+<li>Generalized algebraic data types and dependent types</li>
+<li>Support of metaprogramming with <code>@</code>-attributes operating like macros</li>
+<li>Parallel computation by default ("multi-way computing")</li>
+<li>Doesn't require a runtime, doesn't use a garbage collector</li>
+<li>Data types, functions and variable instances have no difference: everything is an expression</li>
+<li>Each expression corresponds to a natural transformation</li>
+<li>Program compilation is an evaluation of expressions</li>
+<li>Designed for the creation of domain-specific languages</li>
+</ol>
+<h3 id="mutability-and-racing-conditions">Mutability and racing conditions</h3>
+<p>There are no variables, just values.</p>
+<h3 id="exception-handling">Exception handling</h3>
+<h3 id="memory-addressing">Memory addressing</h3>
+<h2 id="program-structure">Program structure</h2>
+<aside>
+  <p>Since every statement is evaluated during compilation to expressions, everything is an expression, and each expression
+  resolves to a natural transformation. Natural transformations always compose with each other, any program in Cation
+  evaluates to just a single natural transformation, i.e. program compilation is equal to the process of evaluating all
+  expressions.</p>
+</aside>
+<p>On the high level, the Cation program consists of (optionally annotated) <strong>statements</strong>, which can be either
+<strong>specifiers</strong> or <strong>expressions</strong>.</p>
+<p>Specifiers are evaluated by the compiler to sets of expressions, serving the primary purpose of reducing boilerplate
+code and simplifying human readability and writability of the language.</p>
+<h3 id="specifiers">Specifiers</h3>
+<p>Specifiers consist of a <strong>declaration</strong>, optionally followed by a <strong>definition</strong>, which may contain <strong>type</strong> and
+<strong>body</strong> information. Definition bodies, when present, are made of a sequence of statements.</p>
+<p>Declaration starts with one of keywords, either build-in (<code>data</code>, <code>fx</code>, <code>infx</code>, <code>let</code>, <code>alias</code>) or added as language
+extensions by domain-specific languages on top of Cation (like <a href="https://www.contractum.org">Contractum</a>). The declaration keyword is followed by
+a declaration name, which can be used later as a part of expressions throughout Cation code.</p>
+<p>The overall structure of a specifier is the following: <code>&lt;KEYWORD&gt; &lt;NAME&gt; &lt;TYPE&gt;? &lt;BODY&gt;?</code>. Type, when present, is
+separated from the name with a semicolon operator; body, when present, is separated from the previous parts either with
+<code>:=</code> operator, when a body is given on the same line, or a newline character, with all body statements indented.</p>
+<aside>
+  <p>Declaration name can be any valid Unicode string; however, it must always start with a non-numeric character, must not
+  contain any already defined names made of math operators (for instance <code>some+method</code> would be an invalid
+  name if the name <code>+</code> was defined before with some other meaning) and must put names made with math
+  operators in backquotes.</p>
+</aside>
+<p>Some examples of specifiers are:</p>
+<ul>
+<li>data type specifier:<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>data Coord2D: x U64, y U64
+</span></code></pre>
+where <code>data Coord2D</code> is a <em>data type declaration</em>, separated with colon from the type information,
+which is <code>x U64, y U64</code>. Data type specifiers contain no body.</li>
+<li>value specifier:<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>val value: U8 := 5
+</span></code></pre>
+where <code>val value</code> is a <em>value declaration</em>, separated with colon from the type information, which is <code>U8</code>. Next,
+the body contains the value assigned to the named value instance. Value specifications may have data type omitted in
+situations when it can be inferred; for instance, we can also write the specifier above as <code>val value := 5#U8</code>, where
+<code>#U8</code> is a type annotation.</li>
+</ul>
+<div></div>
+<ul>
+<li>function specifier (infix variant):<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>infx `+`: a Coord2D, b Coord2D -&gt; Coord2D
+</span><span>  val x := a.x + b.x
+</span><span>  val y := a.y + b.y
+</span><span>  x, y
+</span></code></pre>
+which can be also written as a one-liner<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>infx `+`: a Coord2D, b Coord2D -&gt; Coord2D := a.x + b.x, a.y + b.y
+</span></code></pre>
+</li>
+</ul>
+<aside>
+  <p>Here we can see several things:</p>
+  <ul>
+    <li>declaration name use mathematical symbol of addition and thus backquoted;</li>
+    <li>type information consists of input and return type, separated with <code>-></code> operator.</li>
+  </ul>
+</aside>
+<h3 id="expressions">Expressions</h3>
+<p>Everything which is not a specifier is an expression. Expressions can be seen as mathematical statements, or a natural
+transformations.</p>
+<p>In Cation, data types, values and functions are all first-class citizens, such that all of them may participate
+expressions.</p>
+<p>Expressions are made of named entities, composed together according to the compatibility rules using functions.
+Expressions are separated either with a line feed character (U+000A), or with a semicolon <code>;</code> if put on one line one
+after the other.</p>
+<h2 id="language-syntax">Language syntax</h2>
+<h3 id="fundamental-operators">Fundamental operators</h3>
+<p>Built-in operators are called <strong>fundamental operators</strong>. They are used for basic expression composability and constitute
+a backbone of the expression syntax.</p>
+<aside>
+  <p>Operator is a function which name is made of mathematical symbols.</p>
+  <p>Below we will discuss more about fundamental
+  operators which are a backbone of the expression syntax.</p>
+</aside>
+<p>There are three sets of fundamental operators: categorical limits, projection and injection operators, iterating and
+composition operators. These operators are used to structure execution flow: branching, looping, working with
+collections etc.</p>
+<h4 id="categorical-limits">Categorical limits</h4>
+<p>There are two fundamental operators defining categorical limits: product operator <code>,</code> (comma) and sum operator
+<code>|</code> (pipe). These operators are used to compose most of the code; for instance, arguments of a data type definition is
+just an expression composing other data types as a categorical product; for instance, <code>data Coord2D: x U32, y U32</code>
+makes 2D coordinate as a product of two 32-bit integers. Likewise, a co-product (<em>enum</em>) data types can be defined as
+<code>data Maybe: none | some(X)</code>.</p>
+<h4 id="projection-operators">Projection operators</h4>
+<p>Projection operators <code> </code> (space) and <code>.</code> (dot) allow to call a function providing it with arguments. The use of these
+two forms depends on the function type and a number of its arguments. There are two types of functions, which affect the
+operator: prefix functions (declared using <code>fx</code> keyword) and infix functions (declared with <code>infx</code> keyword). For prefix
+operators one calls a function (i.e. does projection) by putting function argument after the function name, separating
+them with a space: <code>someFn argument</code>. In fact, any prefix function can be seen as a function with just a single argument,
+made of anonymous data type, composing all arguments together. Thus, a function of two arguments can be used in the
+following manner:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>fx twoArgsFn: x U32, y U32 -&gt; U32
+</span><span>
+</span><span>val coord := x U32, y U32
+</span><span>twoArgsFn coord 
+</span></code></pre>
+<p>As one may see, a data type can be seen as a function constructing an instance of that type, which emphasises that in
+Cation there is no difference between data types and functions.</p>
+<p>The call of the prefix function can be reversed using a dot projection operator <code>.</code>: <code>coord.twoArgsFn</code>.</p>
+<p>Infix functions are put after their first argument, which allows more natural way of using mathematical operators and
+alike. For instance, above we have declared <code>infx `+` </code> operator which takes two arguments and adds them together:
+<code>a + b</code>. One may also reverse the order of the arguments passed to the infix operator by putting the call expression
+into parentheses: <code>(+ a, b)</code> or even <code>(+) a, b</code>.</p>
+<aside>
+  <p>One may notice that Cation language logo is made with <code>(+)</code> expression :)</p>
+</aside>
+<h4 id="injection-operators">Injection operators</h4>
+<p>Injection operators <code>&gt;|</code>, <code>|?</code>, <code>|:</code> represent a way how to de-compose a categorical co-product into one of its source
+components and pattern-match against them. In other words, injection operators are the way to branch the code execution;
+they are the way how <em>if-else</em> statements and pattern matching is handled in the language.</p>
+<p>There are several ways of doing branching constructions using injection operators. First, one can use <code>value &gt;|</code> in
+combination with <code>pattern =&gt; code</code> expressions to match the value against a set of patterns and handle a default variant
+with <code>_ =&gt; code</code>:</p>
+<aside>
+  <p>We use `=>` operator to signify that each pattern is in fact a natural transformation</p>
+</aside>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>data WorldDirection: north | south | west | east
+</span><span>
+</span><span>val sample: WorldDirection
+</span><span>
+</span><span>sample &gt;|                   – match sample {
+</span><span>  north =&gt; doSomething1     –   north =&gt; {} 
+</span><span>  south =&gt; doSomething2     –   south =&gt; {}
+</span><span>      _ =&gt; doSomething3     –   _ =&gt; {}
+</span><span>                            – }
+</span></code></pre>
+<aside>
+  <p>In comments we provide Rust equivalents</p>
+</aside>
+<p>Next, one can use a boolean expression followed with <code>|?</code> to express <em>if</em> semantics, and use <code>|:</code> for handling <em>else</em>
+condition. Let's assume we have an expression <code>test</code> which results in a boolean value, and two expressions, <code>ifTrue</code> and
+<code>ifFalse</code> which we'd like to execute basing on the <code>test</code> value. To do so we simply write <code>test |? ifTrue |: ifElse</code>.</p>
+<aside>
+  <p>Boolean type in Cation is a co-product type, thus any boolean condition can use injection for conditional branching</p>
+  <p>One may clearly see similarities with ternary operator <code> .. ? .. : .. </code> &nbsp;in C++; however, in Cation
+  the operator clearly maintains similarity with co-product categorical composition operator <code>|</code> and
+  signifies injections of the co-product value into each of its components.</p>
+</aside>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>sample =?= north             – if sample == north
+</span><span>|? doSomething1
+</span><span>|: doSomething2             – else
+</span><span>
+</span><span>sample =?= north             – if sample == north
+</span><span>|? doSomething1
+</span><span>|: sample =? south          – else if sample == south
+</span><span>|? doSomething2             
+</span><span>|: doSomething3             – else
+</span></code></pre>
+<h4 id="composition-operators">Composition operators</h4>
+<p>Operators <code>( )</code>, <code>[ ]</code> and <code>{ }</code> are called composition operators; they are used to create types via categorical
+composition of existing types, i.e. act as natural transformations defining new functors (as type constructors) from
+existing ones.</p>
+<p>Round parenthesis can be used for grouping expressions, such that the boundaries of composition operation are
+explicitly provided. When used with no values, they also can be used to represent initial object (unit) <code>(,)</code>, as
+well as terminal object (impossible type) <code>(|)</code>.</p>
+<aside>
+  <p><code>(,)</code> is the initial object in the category $\mathbf{Cation}$ of all Cation data types. It corresponds to
+  *unit* type in other languages, like <code>()</code> in Rust or <code>void</code> in C/C++. <code>(|)</code> is the
+  terminal object corresponding to *never* type or *uninhabited* enums in other languages, like <code>!</code> or
+  <code>enum Impossible {}</code> in Rust.</p>
+</aside>
+<p>Square brackets are used for creating ordered non-unique <strong>collection types</strong>. Collection type is a type composed
+dynamically (via production operation) of some elementary data types – which in other languages is called a <em>list</em>
+or an <em>array</em>. Finally, curly braces are used for creating ordered unique collection types – <em>sets</em> and <em>maps</em>.</p>
+<p>In the type definition each of the collection types is required to have a specification of the minimum and maximum
+allowed number of elements – a mechanism by which compiler can perform a termination analysis and enforce boundaries
+and compile-time. This is done with <strong>power operator</strong> <code>^</code> and <strong>range operators</strong> <code>..=</code> and <code>..&lt;</code>. Power operator
+denotes that the data type of collection element is potentiated, and the range operator specifies limits of how
+many times the self-product of the element type may happen. For instance, <code>[ U8 ^ ..&lt;256 ]</code> is an array which may
+contain from zero up to 255 elements of unsigned 8-bit integer type.</p>
+<h4 id="iterating-operators">Iterating operators</h4>
+<p>Iterating operators are used not just for data type specifications, but also for enabling code repetitions
+(cycles and loops), iterators and generators. For this purpose iterating operators <code>&lt;|</code> and <code>|&gt;</code> are used.
+The semantic meaning of the expression becomes <q>take each element of a collection and bring it as a value to the other
+expression</q>. The collection for <code>&lt;|</code> should be put right-side and expression processing its values left-side,
+while for <code>|&gt;</code> the order is reversed. Thus, <code>0..&lt;100#U8 |&gt; print</code> will iterate over range of unsigned 8-bit integers
+from zero to 100 and print each of them. When the iterating operator is combined with a composition operator, this means
+<q>put the resulting values from the expression into a new collection</q>: for instance <code>[0..&lt;100#U8 |&gt; pow 2]</code> would
+collect all squared numbers from 0 to 99 into a new list.</p>
+<aside>
+  <p>In Cation a function and an operator may have multiple aliases. For instance, mathematical and fundamental
+  operators have an ASCII and Unicode aliases, and both can be used in code. For iterating operators, Unicode
+  version is <code>|></code>, while ASCII is 
+  <code style="padding-right: 0">|</code><code style="padding-left: 0.5pt">></code></p>
+</aside>
+<p>When working with loops using iterating operators one may need to access the current value from the iterator in explicit
+form, as well as to use a results from previous rounds of the iterator. This can be done with <code>_</code> and <code>$</code> operators:
+<code>_</code> is the <strong>context-defined value</strong> operator holding the current input for the iteration, while <code>$</code> is the <strong>result
+operator</strong> giving access to the output values of the previous iterations. For instance, to access the previous
+result one needs to write <code>$-1</code>, and to access the value result of the very first iteration, <code>$0</code> (<code>$1</code> will give
+result of the second iteration etc.). Result operator <code>$</code> can be also used to assign an output of the iteration or a
+function by writing <code>$ &lt;- value</code>.</p>
+<h4 id="tags-and-annotations">Tags and annotations</h4>
+<p>Operator <code>#</code> adds context tags to the values; for instance it is used to add integer tag to co-product type variants
+(like in <code>data Bool: false#0 | true#1</code>) or to enforce some literal to be of a specific data type (like in <code>..100#U8</code>,
+where the range is enforced to be over <code>U8</code> type).</p>
+<p>Operator <code>@</code> is used to annotate Cation statements. Annotations are a way of metaprogramming: they are similar to
+procedural macros in Rust or annotations in Java.</p>
+<h3 id="data-types">Data types</h3>
+<p>Data types are made with GADT and category theory:</p>
+<ul>
+<li>primitive data types all are countable and finite sets;</li>
+<li>compositional data types are products (using <code>,</code> operator) or coproducts (<code>|</code> operator) of primitive types (sets).</li>
+</ul>
+<p>Data type names are capitalized; their definition starts with a <code>data</code> keyword, followed by the type name and
+compositional semantic after a colon, which can be seen as a constructor definition or as a product/coproduct
+functor over categories creating new given data type as a new category. For instance, <code>data Coord : x U32, y U32</code>
+defines category $Coord$ (2D coordinate) as a self-product of categories $U32$ (all 32-bit natural numbers)
+$Coord = U32 \times U32$ having two corresponding projective morphisms $x: Coord \mapsto U32$ and $y: Coord \mapsto U32$</p>
+<p>Cation comes with a very small set of built-in data types; the most of the types used in everyday programming are
+defined in the standard library.</p>
+<h4 id="built-in-types">Built-in types</h4>
+<p>There are four main classes of built-in types:</p>
+<aside>
+  <p>You can learn more about type classes below</p>
+</aside>
+<ul>
+<li><strong>unit</strong> <code>(,)</code> and <strong>never</strong> type <code>(|)</code>, which we have covered above;</li>
+<li><strong>integer numbers</strong>: signed, unsigned and non-zero unsigned<br/>(type classes <code>int</code>, <code>unsigned</code>, <code>signed</code> and <code>nonzero</code>);</li>
+<li><strong>floating-point numbers</strong> (type class <code>float</code>);</li>
+<li><strong>Unicode character</strong> <code>Char</code> type;</li>
+<li><strong>range</strong> types.</li>
+</ul>
+<aside>
+  <p>Unicode character type <code>Char</code> is the only type having variable bit length, which is caused by the
+  Unicode standard. Its length varies from 8 bits to 32 bits; with 8 bit step.</p>
+</aside>
+<p>Integers and floats offer many times with different bit length; float types also offer different memory encodings.
+Unicode character has variable bit length.</p>
+<p>Supported bit length for <strong>integer types</strong> are:</p>
+<table><thead><tr><th>Bits</th><th>Bytes</th><th style="text-align: right">Unsigned</th><th style="text-align: right">Signed</th><th style="text-align: right">Non-zero</th><th>C equivalents</th><th>Rust equivalents *</th></tr></thead><tbody>
+<tr><td>8 bits</td><td>1 byte</td><td style="text-align: right"><code>U8</code></td><td style="text-align: right"><code>I8</code></td><td style="text-align: right"><code>N8</code></td><td><code>(unsigned)</code> <code>char</code></td><td><code>u8</code>, <code>i8</code>, <code>NonZeroU8</code></td></tr>
+<tr><td>16 bits</td><td>2 bytes</td><td style="text-align: right"><code>U16</code></td><td style="text-align: right"><code>I16</code></td><td style="text-align: right"><code>N16</code></td><td><code>(unsigned)</code> <code>short</code></td><td><code>u16</code>, <code>i16</code>, <code>NonZeroU16</code></td></tr>
+<tr><td>24 bits</td><td>3 bytes</td><td style="text-align: right"><code>U24</code></td><td style="text-align: right"><code>I24</code></td><td style="text-align: right"><code>N24</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>32 bits</td><td>4 bytes</td><td style="text-align: right"><code>U32</code></td><td style="text-align: right"><code>I32</code></td><td style="text-align: right"><code>N32</code></td><td><code>(unsigned)</code> <code>long</code></td><td><code>u32</code>, <code>i32</code>, <code>NonZeroU32</code></td></tr>
+<tr><td>40 bits</td><td>5 bytes</td><td style="text-align: right"><code>U40</code></td><td style="text-align: right"><code>I40</code></td><td style="text-align: right"><code>N40</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>48 bits</td><td>6 bytes</td><td style="text-align: right"><code>U48</code></td><td style="text-align: right"><code>I48</code></td><td style="text-align: right"><code>N48</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>56 bits</td><td>7 bytes</td><td style="text-align: right"><code>U56</code></td><td style="text-align: right"><code>I56</code></td><td style="text-align: right"><code>N56</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>64 bits</td><td>8 bytes</td><td style="text-align: right"><code>U64</code></td><td style="text-align: right"><code>I64</code></td><td style="text-align: right"><code>N64</code></td><td><code>(unsigned)</code> <code>long long</code></td><td><code>u64</code>, <code>i64</code>, <code>NonZeroU64</code></td></tr>
+<tr><td>80 bits</td><td>10 bytes</td><td style="text-align: right"><code>U80</code></td><td style="text-align: right"><code>I80</code></td><td style="text-align: right"><code>N80</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>96 bits</td><td>12 bytes</td><td style="text-align: right"><code>U96</code></td><td style="text-align: right"><code>I96</code></td><td style="text-align: right"><code>N96</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>112 bits</td><td>14 bytes</td><td style="text-align: right"><code>U112</code></td><td style="text-align: right"><code>I112</code></td><td style="text-align: right"><code>N112</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>128 bits</td><td>16 bytes</td><td style="text-align: right"><code>U128</code></td><td style="text-align: right"><code>I128</code></td><td style="text-align: right"><code>N128</code></td><td>n/a</td><td><code>u128</code>, <code>i128</code>, <code>NonZeroU128</code></td></tr>
+<tr><td>256 bits</td><td>32 bytes</td><td style="text-align: right"><code>U256</code></td><td style="text-align: right"><code>I256</code></td><td style="text-align: right"><code>N256</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>512 bits</td><td>64 bytes</td><td style="text-align: right"><code>U512</code></td><td style="text-align: right"><code>I512</code></td><td style="text-align: right"><code>N512</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>1024 bits</td><td>128 bytes</td><td style="text-align: right"><code>U1024</code></td><td style="text-align: right"><code>I1024</code></td><td style="text-align: right"><code>N1024</code></td><td>n/a</td><td>n/a</td></tr>
+</tbody></table>
+<aside>
+  <p>&nbsp;</p>
+  <p><sup>*</sup> Rust <a href="https://crates.io/amplify"><code>amplify</code></a> library offers many of the integer
+  types present in the Cation language</p>
+</aside>
+<p>All integer types in Cation are co-product types, made with all their allowed values. This makes it possible to use
+<a href="https://cation-lang.org/design/#injection-operators">injection operators</a> to match them against patterns and ranges.</p>
+<p>Supported bit length and encodings for <strong>floating-point types</strong> are:</p>
+<table><thead><tr><th>Type name</th><th>Bytes</th><th>Encoding</th><th>Underlynig Rust type</th></tr></thead><tbody>
+<tr><td><code>F16B</code></td><td>2</td><td>bfloat16</td><td><code>bfloat::bf16</code></td></tr>
+<tr><td><code>F16</code></td><td>2</td><td>IEEE Half</td><td><code>apfloat::ieee::Half</code></td></tr>
+<tr><td><code>F32</code></td><td>4</td><td>IEEE Single</td><td><code>apfloat::ieee::Single</code></td></tr>
+<tr><td><code>F64</code></td><td>8</td><td>IEEE Double</td><td><code>apfloat::ieee::Double</code></td></tr>
+<tr><td><code>F80</code></td><td>10</td><td>IEEE X87 Extended</td><td><code>apfloat::ieee::X87DoubleExtended</code></td></tr>
+<tr><td><code>F128</code></td><td>16</td><td>IEEE Quad</td><td><code>apfloat::ieee::Quad</code></td></tr>
+<tr><td><code>F256</code></td><td>32</td><td>IEEE Oct</td><td><code>apfloat::ieee::Oct</code></td></tr>
+</tbody></table>
+<p><strong>Range types</strong> simplify creation of <a href="https://cation-lang.org/design/#iterable-collections">collection types</a>, described below, as well as are an
+efficient tool in building <a href="https://cation-lang.org/design/#iterating-operators">cycles and iterators</a>. Cation comes with the following set of
+range types, each of which can be instantiated using a shorthand <strong>range operator</strong>.</p>
+<table><thead><tr><th>Type name</th><th>Range operator</th></tr></thead><tbody>
+<tr><td><code>RangeAll</code></td><td><code>..</code></td></tr>
+<tr><td><code>RangeTo</code></td><td><code>..&lt;N</code></td></tr>
+<tr><td><code>RangeToIncl</code></td><td><code>..=N</code></td></tr>
+<tr><td><code>RangeFrom</code></td><td><code>M..</code></td></tr>
+<tr><td><code>RangeFromTo</code></td><td><code>M..&lt;N</code></td></tr>
+<tr><td><code>RangeFromToIncl</code></td><td><code>M..=N</code></td></tr>
+</tbody></table>
+<h4 id="data-type-composition">Data type composition</h4>
+<p>New data types in Cation are constructed via composition of built-in types using categorical product and co-product
+operators <code>,</code> and <code>|</code> described above. Here are the requirements for the syntax of these operators:</p>
+<table><thead><tr><th>Name</th><th>Syntax form</th><th>Max no of fields or variants</th></tr></thead><tbody>
+<tr><td>Product types (structure, tuple)</td><td><code>• , •</code> <em>or</em> <code>(• , •)</code></td><td>256</td></tr>
+<tr><td>Sum types <br>(union, enum)</td><td><code>• </code>|<code> •</code> <em>or</em> <code>(• </code>|<code> •)</code></td><td>256</td></tr>
+</tbody></table>
+<h4 id="iterable-collections">Iterable collections</h4>
+<p>One may use <a href="https://cation-lang.org/design/#composition-operators">composition operators</a> to build arrays and dynamic collections, which may be
+iterated over using <a href="https://cation-lang.org/design/#iterating-operators">iterating operations</a>. Cation provides built-in support for the following
+collections:</p>
+<table><thead><tr><th>Name</th><th>Syntax form</th><th>Max no of elements / fields / variants</th></tr></thead><tbody>
+<tr><td>Fixed array</td><td><code>[•^N]</code></td><td><code>N</code>, up to 2^16</td></tr>
+<tr><td>Dynamic list</td><td><code>[• ^D..&lt;U]</code></td><td>From <code>D</code> to <code>U</code>, up to 2^64</td></tr>
+<tr><td>Dynamic set</td><td><code>{• ^D..&lt;U}</code></td><td>From <code>D</code> to <code>U</code>, up to 2^64</td></tr>
+<tr><td>Dynamic map</td><td><code>{• -&gt; ^D..U •}</code></td><td>From <code>D</code> to <code>U</code>, up to 2^64</td></tr>
+</tbody></table>
+<p>Range constriction <code>^D..=U</code> used in type expression specifying minimum and maximum size of a dynamic collection is
+called <strong>confinement bounds</strong>. It can be seen as an upper and lower indexes on the possible number of elements, i.e.
+type definition <code>[Byte ^ 1..20]</code> can be read as $\bigotimes^{20}_1 byte$ and means product type with dynamic number of
+fields, from 1 to 20 max, where each field is a byte – or, in more common terms, a byte array of dynamic size which
+can't have less than one byte – and can't grow larger than 20 bytes.</p>
+<p>For simplifying syntax strict encoding provides comprehensions and defaults for specifying the confinement bounds:</p>
+<table><thead><tr><th>Comprehension</th><th>Expands to</th><th>Comment</th></tr></thead><tbody>
+<tr><td><code>[•]</code></td><td><code>[• ^ 0..=0xFFFF]</code></td><td>Default number of elements in confined collections is from zero to 2^16</td></tr>
+<tr><td><code>[•+]</code> <em>or</em> <code>[•^1..]</code></td><td><code>[• ^ 1..=0xFFFF]</code></td><td>Collection which must contain at least one item</td></tr>
+<tr><td><code>[•^N]</code></td><td><code>[• ^ N..=0xFFFF]</code></td><td>Collection with minimum of <code>N</code> items</td></tr>
+<tr><td><code>[•^..=N]</code></td><td><code>[• ^ 0..=N]</code></td><td>Collection having maximum of <code>N</code> items</td></tr>
+</tbody></table>
+<aside>
+  <p>Please note that type expression of <code>[•^N..=N]</code> is not allowed, since it means <q>dynamic</q> collection
+  with a fixed number of items, which is nonsense, so please use <code>[•^N]</code> instead.</p>
+</aside>
+<h4 id="standard-library-types">Standard library types</h4>
+<p>Standard library offers many types composed of the built-ins, including (but not limiting to):</p>
+<ul>
+<li>Restricted-bit-length integers, like <code>U1</code>, <code>U2</code>, <code>U3</code>, <code>U4</code>, <code>U5</code>, <code>U6</code>, <code>U7</code>;</li>
+<li>ASCII char subsets <code>AsciiChar</code>, <code>AsciiPrintable</code> and others;</li>
+<li>Strings: Unicode strings <code>String</code>, ASCII string <code>AsciiString</code>;</li>
+<li>Bytes, fixed and dynamic byte arrays: <code>Byte</code>, <code>Bytes16</code>, <code>Bytes32</code>, <code>Blob256</code>, <code>Blob64kB</code>, <code>Blob16MB</code> <code>Blob4GB</code> etc;</li>
+<li>Commonly-used monads <code>Maybe</code>, <code>Either</code>, <code>Result</code>, <code>Ternary</code>.</li>
+</ul>
+<h3 id="lambda-expressions">Lambda expressions</h3>
+<p><dfn>Lambda expressions</dfn> allow a combination of statements, capturing locally-defined values,
+to be treated as a function. They simplify passing functions as arguments to other functions, saving
+from boilerplate code.</p>
+<aside>
+  <p>One of Cation's main features is an ability to treat data, values and functions the same way, making all of them
+  first-class citizens.</p>
+</aside>
+<p>Lambda expressions have several forms. The canonical one is a specifier form, which starts with a <code>lambda</code> keyword,
+followed by a value name, colon, argument and return type definition and body:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>val local: U8 = random
+</span><span>lambda sq: x U8 -&gt; U32
+</span><span>    pow 2 + local
+</span></code></pre>
+<p>As any other specifier it can be put into a single line:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>val local: U8 = random
+</span><span>lambda sq: x U8 -&gt; U32 := pow 2 + local
+</span></code></pre>
+<p>The second form is an operator form using <code>.\</code> or Greek <code>λ</code>; it allows anonymous lambda definitions which may span
+a single or multiple lines. The specific syntax of this form depends on whether the lambda is the last expression in
+the line:</p>
+<aside>
+  <p>The <code>.\</code> operator is shaped after Greek letter $\lambda$.</p>
+</aside>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>-- for the last expression in the line
+</span><span>.\pow 2
+</span><span>-- or even shorter
+</span><span>.\^2
+</span></code></pre>
+<p>If a lambda expression has to be followed by other expressions, one need to put the expression into a parenthesis:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>.\(pow 2), _
+</span></code></pre>
+<p>Lambda expressions may have own explicit arguments, separated from the function body using double-column. The return
+type may be omitted, and in this case if is inferred by the compiler from the body of the expression:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>.\x U8 -&gt; U16: x pow 2
+</span><span>
+</span><span>-- With a type omission:
+</span><span>.\x U8: x pow 2
+</span><span>
+</span><span>-- If the expression is not at the end of a line
+</span><span>.\(x U8: x pow 2), _
+</span></code></pre>
+<p>Finally, there is the multiline forms of lambda expressions:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>lambda lambdaFn
+</span><span>    statement1
+</span><span>    statement2
+</span></code></pre>
+<p>In can be used the same way as single-line expressions, with the only difference – there is no colon between the lambda
+declaration and the body:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>.\ x U8
+</span><span>   x pow 2
+</span><span>
+</span><span>.\ x U8 -&gt; U16
+</span><span>   x pow 2
+</span><span>
+</span><span>-- Here we can use multiline in the middle of other expression
+</span><span>someFn arg1, .\(x U8 -&gt; U16
+</span><span>   x pow 2
+</span><span>), argLast
+</span></code></pre>
+<p>The type of the lambda expression is <code>.\ input -&gt; output</code>, and this type may be used in type annotations:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>val squared: .\U8 -&gt; U16 := .\pow 2
+</span></code></pre>
+<!-- TODO: add on currying:
+Functions with multiple arguments is the same as a function with single argument made of anonymous data type composing
+the list of the arguments. -->
+<h3 id="generics">Generics</h3>
+<p>Cation supports parametric polymorphism via type classes, generics and confinement constraints.</p>
+<h4 id="type-classes">Type classes</h4>
+<p>Type classes are the same as classes in Haskell or traits in Rust: they provide a simple way to introduce generics into
+programming, without the need for complex inheritance rules.</p>
+<p>Type classes are declared with <code>class</code> keyword followed by a lowercase name; here is an example how <code>ord</code> and <code>eq</code>
+classes are defined in the standard library:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>class ord
+</span><span>  infx `&gt;?`: Self, Self -&gt; Bool
+</span><span>  
+</span><span>  @final
+</span><span>  infx `&lt;?`: a Self, b Self -&gt; Bool
+</span><span>    ~ (a &gt;? b)
+</span><span>
+</span><span>class eq: ord
+</span><span>  infx `=?=`: Self, Self -&gt; Bool
+</span><span>
+</span><span>  @final
+</span><span>  infx `=/=`: a Self, b Self -&gt; Bool
+</span><span>    ~ a =? b
+</span><span>  
+</span><span>  @final
+</span><span>  infx `&gt;?=`: a Self, b Self -&gt; Bool
+</span><span>    a =?= b |? true |: a &gt;? b
+</span><span>  
+</span><span>  @final
+</span><span>  infx `&lt;?=`: a Self, b Self -&gt; Bool
+</span><span>    a =?= b |? true |: a &lt;? b
+</span></code></pre>
+<aside>
+  <p>Cation tries to use semantically and mathematically correct operator symbols. Thus, instead of using simple
+  <code>></code> operator, which states that the left value is greater than one, we add a question mart to it,
+  applying semantic of test.</p>
+</aside>
+<p>With declarations, all types which has infix <code>&gt;?</code> operator taking two arguments of the same type and returning bool
+will become <code>ord</code> and acquire the opposite infix operator <code>&lt;?</code>.</p>
+<h4 id="generic-arguments">Generic arguments</h4>
+<p>Functions and data types can be equipped with generic arguments between colon separating function name from its input
+arguments, and <code>=&gt;</code> character:</p>
+<aside>
+  <p>In terms of category theory, generic arguments represent a co-product of all generic types, and `=>` operator is a
+  natural transformation from the functor constructing that co-product to the function itself as a functor mapping
+  category of its composed input type to category of its composed output type.</p>
+</aside>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>fx len: T any, N unsigned =&gt; collection [T ^ $N..$N] -&gt; N
+</span></code></pre>
+<p>Each generic argument consists of generic parameter name – usually capitalized – and a constraint expressed as a
+type class name to which the type must belong. Multiple generic parameters should be separated by a comma.</p>
+<h4 id="confinement-constraints">Confinement constraints</h4>
+<p>When collections are used inside functions sometimes it is important to make sure that the concrete collection types
+provided to the function in different input or output arguments match their dimensions. This is achieved with a
+special form of generics named <strong>confinement constrains</strong>:</p>
+<aside>
+  <p>Confinement constraints make Cation to fully support generalized algebraic data types (GADT) and ensure at
+  compile-time absence of stack overflows and out-of-memory bounds access</p>
+</aside>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>fx append: N unsigned =&gt; 
+</span><span>  list [String ^ ..$N], item String -&gt; [String ^ ..$N+1]
+</span></code></pre>
+<h2 id="computational-parallelism">Computational parallelism</h2>
+<p>Cation compiler will be designed to reason about the code logic at compile-time, which is possible due to constraints
+and bounds on all resources used by the language. During compilation, it deduces the graph of all relations between
+values used in the program, and uses that graph to automatically parallelize all computations which do not access the
+same values at the same time. Thus, most of the parallelism will come for free, with no effort from the programmer.</p>
+<p>When an explicit parallelism is needed, Cation offers channel-based parallelism, made with rho-calculus. Thus, instead
+of a need to differentiate async and non-async functions one uses non-blocking channels to send data by value. Since
+there is no difference between data, types, functions and everything is just a natural transformations, channels can
+send also functions between threads. This significantly simplifies programming patterns and reduces the number of
+possible pitfalls,</p>
+<aside>
+  <p>Specific syntax for channel-based concurrency programming and computational parallelism is still work in progress</p>
+</aside>
+<h2 id="language-comparison">Language comparison</h2>
+<p>The main differences between Cation and other modern programming languages with strong functional properties are given
+in the table:</p>
+<table><thead><tr><th>Language</th><th>Absent in the language<br/>(but present in Cation)</th><th>Features used in Cation</th></tr></thead><tbody>
+<tr><td>Haskell</td><td>Termination analysis, parallel computing, GADT, "infinite types", absence of runtime</td><td>Monads</td></tr>
+<tr><td>Idris v2</td><td>Parallel computing, absence of runtime</td><td>GADT, termination analysis, monads, eager evaluation</td></tr>
+<tr><td>Scala v2</td><td>Termination analysis, absence of runtime, types are not first-class citizens</td><td>GADT, eager evaluation, monads</td></tr>
+<tr><td>Rust</td><td>Termination analysis, parallel computing, GADT, types are not first-class citizens</td><td>No runtime</td></tr>
+</tbody></table>
+
+</article>
+
+</main>
+
+<footer>
+  <p>
+    Created &amp; maintained by <a href="https://www.ubideco.org">UBIDECO Labs</a><br/>
+    See a bug? <a href="https://github.com/cation-lang/cation-lang.org/issues/new">File an issue!</a>
+  </p>
+  <div>
+    <a href="https://x.com/lnp_bp"><img src="/social/twitter.svg" alt="twitter logo" title="Twitter, officially known as X"></a>
+    <a href="https://t.me/cation_lang"><img src="/social/telegram.svg" alt="telegram logo" title="Telegram"></a>
+    <a href="https://github.com/cation-lang/cation-lang"><img src="/social/github.svg" alt="github logo" title="GitHub"></a>
+  </div>
+  <p>We do not use cookies or any other tracking technology on visitors to this site</p>
+</footer>
+
+</body>
+</html>

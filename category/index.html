@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,target-densitydpi=device-dpi" />
+
+  <title>Cation Language</title>
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/front.css">
+
+  <!-- Math rendering -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="pragma" content="no-cache">
+
+  
+<meta name="description" content="Cation Language in Terms of Category Theory">
+
+<meta property="og:title" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://cation-lang.org/banner.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+<meta property="og:description" content="Cation Language in Terms of Category Theory">
+<meta property="og:site_name" content="Cation Language">
+
+<meta name="twitter:site" content="@lnp_bp">
+
+</head>
+
+<body>
+<nav>
+  <a id="logo" href="/">
+    <img alt="Logo" src="/logo/cation.svg">
+  </a>
+  <ol>
+    <li><a href="/">Cation Language</a></li>
+    
+    
+    
+    
+
+  </ol>
+
+  <ul>
+    <li><a href="/overview">Overview</a></li>
+    <li class="div">|</li>
+    <li><a href="/design">Design</a></li>
+    <li class="div">|</li>
+    <li><a href="/reference">Reference</a></li>
+    <li class="div">|</li>
+    <li><a href="/examples">Examples</a></li>
+    <!-- li class="div">|</li>
+    <li><a href="/try">Try</a></li -->
+    <!-- li class="div">|</li>
+    <li><a href="/community">Community</a></li -->
+  </ul>
+</nav>
+
+<main>
+  
+
+    <nav>
+        <ol>
+            
+            
+            <li>
+                <a href="https://cation-lang.org/category/#basics">Basics</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/category/#types-and-values">Types and Values</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/category/#expressions-functions-programs">Expressions, functions, programs</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/category/#data-types">Data types</a>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/category/#advanced-topics">Advanced topics</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/category/#currying">Currying</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/category/#lambda-expressions">Lambda expressions</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/category/#collections">Collections</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/category/#generics">Generics</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/category/#monads">Monads</a>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/category/#expert-topics">Expert topics</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/category/#naturality-conditions">Naturality conditions</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/category/#termination-analysis">Termination analysis</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/category/#rho-expressions">Rho expressions</a>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+        </ol>
+    </nav>
+
+
+<article class="page">
+    <h1 id="the-categorical-language">The Categorical Language</h1>
+<p>Explaining Cation language in terms of Category Theory</p>
+<p>Cation is a categorical language, meaning a strong equivalence between Category theory and language constructions.
+This article dives into the details of such equivalences, which are made into a core of the language design.</p>
+<h2 id="basics">Basics</h2>
+<p>In Cation language everything – data types, functions, expressions, values, literals – corresponds to categories,
+functors and objects. Since categories can be seen as objects in a higher-order category, all of them need just
+two main language constructions: <strong>types</strong> and <strong>values</strong>, introduced and explained in this section.</p>
+<h3 id="types-and-values">Types and Values</h3>
+<p>The very fundamental concept of a Cation language is <em>type</em>. Each <dfn>type</dfn> is a <em>category</em> in itself.
+Contravariantly, a <em>category</em> in Cation language is named <em>type</em>.</p>
+<aside>
+    <p>Types in Cation are declared using a <code>type</code> keyword followed by a type name:</p>
+    <pre><code>type TypeName</code></pre>
+</aside>
+<p>This is a full and sufficient definition of what <em>type</em> is; everything else about types in Cation and Cation
+itself are just consequences of this definition. For instance, saying that Cation is a language of operations
+with types defines Cation as a categorical language.</p>
+<p>Important to note that all Cation types are small categories and can be represented as finite sets, inhabited by their
+<em>values</em>. Hence, a <dfn>value</dfn> in Cation is an object in one of the <em>type</em> categories.</p>
+<aside>
+    <p>Values are defined using <code>val</code> keyword followed by an optional type annotation and a literal or an
+    expression which evaluation results in the value from the type:</p>
+    <pre><code>val valName: TypeName := expression</code></pre>
+</aside>
+<p>As all small categories can be seen as objects in the category of all small categories <nobr>$\mathbf{Cat}$,</nobr>
+all Cation <em>types</em> as categories may also be seen as objects in a category of all types of Cation language –
+<nobr>$\mathbf{Cation}$.</nobr> As a category, $\mathbf{Cation}$ is small category with infinite number of members.</p>
+<h3 id="expressions-functions-programs">Expressions, functions, programs</h3>
+<p>A Cation <dfn>expression</dfn> maps a type <nobr>($A$)</nobr> (named <dfn>argument type</dfn>) to a type
+<nobr>($R$)</nobr> (named <dfn>return type</dfn>: it can be the same as the argument type, or a different type).
+Thus, an expression in Cation is always a functor <nobr>$F: A \rightarrow R$.</nobr></p>
+<aside>
+    <p>One can guess that an expression can also be seen as a morphism in the <nobr>$\mathbf{Cation}$.</nobr></p>
+</aside>
+<p>Evaluation of an <dfn>expression</dfn> selects a <em>value</em> <nobr>($a$)</nobr> from the <em>argument type</em> <nobr>($A$)</nobr>
+and maps it to another <em>value</em> <nobr>($r$)</nobr> in the <em>return type</em> <nobr>($R$).</nobr> Thus, it is an application
+of the <em>functor</em> <nobr>($F$)</nobr> of the <em>expression</em> to an object <nobr>($a$):</nobr></p>
+<p>$$\mathsf{eval}\ F\ a \doteqdot a \xrightarrow{F} r$$</p>
+<aside>
+    <p>Cation uses syntax close to math notation: a function type and expression evaluation are written as</p>
+    <pre><code>type F: A -> R
+val r := F a</code></pre>
+    <p>You can even use Cation compiler to prove that `r` has the type `R`:</p>
+    <pre><code>val r := (F a)#R</code></pre>
+</aside>
+<p>The signature of an expression $F: A \rightarrow R$ is <a href="https://bartoszmilewski.com/2015/03/13/function-types/">a type by itself</a>: this is a <dfn>function type</dfn>. It
+can also be defined via the evaluation, as shown above, applied to all objects of the argument category:</p>
+<p>$$F\ a = r \in R\ |\ \forall a \in A$$</p>
+<p>In Cation, each <dfn>function</dfn> is a named expression – and each expression is a function (which maybe anonymous).
+All expressions and functions are</p>
+<ul>
+<li>functors,</li>
+<li>morphisms in <nobr>$\mathbf{Cation}$,</nobr></li>
+<li>objects in $\mathrm{hom}(\mathbf{Cation})$</li>
+</ul>
+<aside>
+    <p>Named functions are defined from expressions</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>type name: A -&gt; R := expr
+</span></code></pre>
+<p>or, with a multi-line syntax,</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>type name: A -&gt; R
+</span><span>   expression(s)
+</span></code></pre>
+</aside>
+<p>A Cation <dfn>program</dfn> is a composition of expressions, which is an expression itself (as a composition of
+functors is always a functor). <dfn>Execution of program</dfn> corresponds to an evaluation of the expression: an
+application of the composed functor to a program argument giving a result.</p>
+<h3 id="data-types">Data types</h3>
+<p><dfn>Data types</dfn> is another example of Cation <em>types</em>, such that data types are the first-class language citizen
+alongside functions and expressions.</p>
+<p>There are only two foundational data types, named <em>unit</em> and <em>uninhabited</em>. <dfn>Unit</dfn> type is an <em>initial object</em>
+in the $\mathbf{Cation}$ category and is written as <code>(,)</code>. <dfn>Uninhabited</dfn> type is a <em>terminal object</em> in the
+$\mathbf{Cation}$ category and is written as <code>(|)</code>. All other data types are derived from these two types via ... yes,
+expressions!</p>
+<aside>
+    <p>As will be seen later, <em>unit</em> and <em>uninhabited</em> types are just empty product and co-product types</p>
+</aside>
+<p>Data type is defined as an expression composition of other types. As with any algebraic data type system there are two
+forms of composition: <em>product</em> and <em>co-product</em>.</p>
+<aside>
+    <p>Here, we are taking advantage of all Cation types being small categories and thus sets; so a cartesian product
+    and unit operations over two types can be always defined in terms of sets.</p>
+</aside>
+<p><em>Product data types</em> are bi-functors from categories representing types $L$ and $R$ to a new category $P$; where
+$P$ is a cartesian product of sets of $L$ and $R$ objects: $P \doteqdot L \times R$. This also defines two
+<dfn>projections</dfn> as functors from the type $P$ to the original types $L$ and $R$. Cation expresses product with a
+comma operator (<code>,</code>) and the new type may be defined in the following way:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>data Prod: A, B
+</span><span>
+</span><span>-- using the new Prod type
+</span><span>val new := (valueA, valueB)#Prod
+</span><span>val projA := new.a
+</span><span>val projB := new.b
+</span><span>
+</span><span>-- testing that the result is the same as the original values:
+</span><span>projA =?= valueA &amp;&amp; projB =?= valueB !! mustBeEqual 
+</span></code></pre>
+<aside>
+<p>In fact, this is a syntactic sugar: <code>data</code> is a macro coming with the standard library, which expends into
+this code, defining type, constructor function and two projections:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>type Prod
+</span><span>type `#Prod`: a A, b B @op -&gt; Prod
+</span><span>  (a, b)
+</span><span>type `.a`: self Prod -&gt; A
+</span><span>  val ($, _) := self
+</span><span>type `.b`: self Prod -&gt; B
+</span><span>  val (_, $) := self
+</span></code></pre>
+</aside>
+<p><em>Co-product data types</em> are bi-functors corresponding to the morphism in the $\mathbf{Cation^\mathrm{op}}$: they
+map a union of sets representing all possible values in $L$ and $R$ to a new category $S$: $S \doteqdot L + R$. Cation
+union with a pipe operator (<code>|</code>) and the new type may be defined in the following way:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>data Either: A | B
+</span><span>
+</span><span>-- using the new Either type
+</span><span>let either := a#A -- `a` is the value from the type `A`
+</span><span>either &gt;|
+</span><span>  (a)#A |? print &quot;I am A&quot;
+</span><span>  (b)#B |? print &quot;I am B&quot;
+</span></code></pre>
+<aside>
+<p>Again, this is a syntactic sugar for</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>type Either
+</span><span>-- two constructurs:
+</span><span>type `#Either`: a A -&gt; Either := a
+</span><span>type `#Either`: b B -&gt; Either := b
+</span></code></pre>
+</aside>
+<h2 id="advanced-topics">Advanced topics</h2>
+<h3 id="currying">Currying</h3>
+<p>Since each data type constructor is a functor, and each functor takes exactly one argument, the multi-argument function
+type <code>type fn: A, B -&gt; C</code> can be seen as a functor of a single argument of an unnamed product type <code>(A, B)</code> – or as a
+composition of two unnamed functors <code>type fn: A -&gt; (B -&gt; C)</code> – similar to the Haskell language.</p>
+<h3 id="lambda-expressions">Lambda expressions</h3>
+<h3 id="collections">Collections</h3>
+<h3 id="generics">Generics</h3>
+<p>Now it is time to introduce Cation language constructs build using the last component of the Category theory:
+<em>natural transformations</em>.</p>
+<h3 id="monads">Monads</h3>
+<h2 id="expert-topics">Expert topics</h2>
+<p>Here we show how all language constructs can be interpreted as natural transformations, such that their composability
+properties are used for terminal analysis and parallel computations without creation of racing conditions.</p>
+<h3 id="naturality-conditions">Naturality conditions</h3>
+<h3 id="termination-analysis">Termination analysis</h3>
+<h3 id="rho-expressions">Rho expressions</h3>
+
+</article>
+
+</main>
+
+<footer>
+  <p>
+    Created &amp; maintained by <a href="https://www.ubideco.org">UBIDECO Labs</a><br/>
+    See a bug? <a href="https://github.com/cation-lang/cation-lang.org/issues/new">File an issue!</a>
+  </p>
+  <div>
+    <a href="https://x.com/lnp_bp"><img src="/social/twitter.svg" alt="twitter logo" title="Twitter, officially known as X"></a>
+    <a href="https://t.me/cation_lang"><img src="/social/telegram.svg" alt="telegram logo" title="Telegram"></a>
+    <a href="https://github.com/cation-lang/cation-lang"><img src="/social/github.svg" alt="github logo" title="GitHub"></a>
+  </div>
+  <p>We do not use cookies or any other tracking technology on visitors to this site</p>
+</footer>
+
+</body>
+</html>
