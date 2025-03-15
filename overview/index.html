@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,target-densitydpi=device-dpi" />
+
+  <title>Cation Language</title>
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/front.css">
+
+  <!-- Math rendering -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="pragma" content="no-cache">
+
+  
+<meta name="description" content="Cation Language Overview">
+
+<meta property="og:title" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://cation-lang.org/banner.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+<meta property="og:description" content="Cation Language Overview">
+<meta property="og:site_name" content="Cation Language">
+
+<meta name="twitter:site" content="@lnp_bp">
+
+</head>
+
+<body>
+<nav>
+  <a id="logo" href="/">
+    <img alt="Logo" src="/logo/cation.svg">
+  </a>
+  <ol>
+    <li><a href="/">Cation Language</a></li>
+    
+    
+    
+    
+
+  </ol>
+
+  <ul>
+    <li><a href="/overview">Overview</a></li>
+    <li class="div">|</li>
+    <li><a href="/design">Design</a></li>
+    <li class="div">|</li>
+    <li><a href="/reference">Reference</a></li>
+    <li class="div">|</li>
+    <li><a href="/examples">Examples</a></li>
+    <!-- li class="div">|</li>
+    <li><a href="/try">Try</a></li -->
+    <!-- li class="div">|</li>
+    <li><a href="/community">Community</a></li -->
+  </ul>
+</nav>
+
+<main>
+  
+
+    <nav>
+        <ol>
+            
+            
+            <li>
+                <a href="https://cation-lang.org/overview/#unique-features">Unique features</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/overview/#boundness">Boundness</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/overview/#parallelism-by-default">Parallelism by default</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/overview/#no-ram-no-mutability">No RAM, no mutability</a>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/overview/#notable-features">Notable features</a>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/overview/#syntax">Syntax</a>
+                
+                <ol>
+                    
+                    <li>
+                        <a href="https://cation-lang.org/overview/#declarations">Declarations</a>
+                        
+                    </li>
+                    
+                </ol>
+                
+            </li>
+            
+        </ol>
+    </nav>
+
+
+<article class="page">
+    <h1 id="cation-language-overview">Cation Language Overview</h1>
+<p>Cation as a pure categorical programming language for practical tasks.</p>
+<p>We designed Cation to be:</p>
+<ul>
+<li>non-verbose;</li>
+<li>as close to mathematics notation as possible;</li>
+<li>extensible and usable for creation of domain-specific languages.</li>
+</ul>
+<h2 id="unique-features">Unique features</h2>
+<h3 id="boundness">Boundness</h3>
+<p>Cation is the first and the only language where <em>all types are bounded in their size and computational resources at the
+compile time</em>. This enables two main core language properties: <em>formal verifiability</em> and <em>termination analysis</em>. It
+also makes Cation a language which can be used for writing ubiquitous deterministic programs suitable for mathematical
+modelling and immutable smart contracts.</p>
+<aside>
+<h3>Why not to use existing functional language?</h3>
+<p>Since each one of them lacks the distinguishing features: absence of the non-terminating computations and parallelism
+by default.</p>
+<p>Instead of operating with a pure mathematical abstractions, which may frequent lead to paradoxes with no physical
+meaning (like <a href="https://en.wikipedia.org/wiki/Banach%E2%80%93Tarski_paradox"></a>Banach–Tarski paradox</a>),
+Cation assumes real physical model for the computing: there are no infinities; any computation is always bound in its
+resources. This allows Cation to achieve things which can't be achieved with any other existing language,
+functional or not.</p>
+</aside>
+<p>By types being <em>bound</em> we mean that any type is a finite set of a known size, with all possible values known to the
+compiler.</p>
+<ul>
+<li>Only two foundational types: unit (initial object) and uninhabitable type (empty set or a terminal object);</li>
+<li>All integers are enumerations made with unit type (Peano arithmetics);</li>
+<li>All rational numbers, including rational numbers (like results of division of integers),
+arithmetic reals (like square root of 2) and irrational numbers (like <em>pi</em> or <em>e</em>) are explicit
+decimal approximates expressed as functions running for a number of steps known at compile-time;</li>
+<li>All other types are composed as a product or co-product categories from unit and uninhabitable type;</li>
+<li>Dynamic collections and iterators always have bounds on the minimum and maximal number of elements enforced at
+compile-time;</li>
+<li>There is no bottom type (non-terminating computations).</li>
+</ul>
+<h3 id="parallelism-by-default">Parallelism by default</h3>
+<p>Cation compiller converts a program as a set of expressions into a composition of natural transformations. This allows
+static analysis at compile-time of which branches of computations depends on which values from other branches; the
+compiler uses this information to parallize all computing wherever is possible with no programmer or syntax overhead.</p>
+<p>When needed, a developer can use an explicit parallelism using asynchronous channels, avoiding racing conditions. These
+channels can be used to send values, lambda-functions and even other channels between execution threads using
+rho-calculus: an extension of lambda-calculus for parallel computations.</p>
+<h3 id="no-ram-no-mutability">No RAM, no mutability</h3>
+<ul>
+<li>Absence of mutable variables;</li>
+<li>Abstracted memory management: language is suitable for architectures with no RAM access, like memristors and cellular
+automation;</li>
+</ul>
+<h2 id="notable-features">Notable features</h2>
+<ul>
+<li>Generic system</li>
+<li>Collections</li>
+<li>Iterators</li>
+<li>Collection comprehensions</li>
+<li>Extensible set of literals</li>
+<li>Domain-specific languages</li>
+<li>No runtime</li>
+<li>Tiny set of compiler built-ins</li>
+<li>Moands</li>
+<li>Side-effect control</li>
+<li>Termination analysis</li>
+<li>Extensible infix operators</li>
+<li>Close-to-mathematics</li>
+</ul>
+<h2 id="syntax">Syntax</h2>
+<h3 id="declarations">Declarations</h3>
+<p>Cation has only two keywords: <code>type</code>, for defining a type, and <code>val</code>, for instantiating a value.</p>
+
+</article>
+
+</main>
+
+<footer>
+  <p>
+    Created &amp; maintained by <a href="https://www.ubideco.org">UBIDECO Labs</a><br/>
+    See a bug? <a href="https://github.com/cation-lang/cation-lang.org/issues/new">File an issue!</a>
+  </p>
+  <div>
+    <a href="https://x.com/lnp_bp"><img src="/social/twitter.svg" alt="twitter logo" title="Twitter, officially known as X"></a>
+    <a href="https://t.me/cation_lang"><img src="/social/telegram.svg" alt="telegram logo" title="Telegram"></a>
+    <a href="https://github.com/cation-lang/cation-lang"><img src="/social/github.svg" alt="github logo" title="GitHub"></a>
+  </div>
+  <p>We do not use cookies or any other tracking technology on visitors to this site</p>
+</footer>
+
+</body>
+</html>

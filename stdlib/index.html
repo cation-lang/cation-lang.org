@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,target-densitydpi=device-dpi" />
+
+  <title>Cation Language</title>
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/front.css">
+
+  <!-- Math rendering -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="pragma" content="no-cache">
+
+  
+<meta name="description" content="Cation Standard Library">
+
+<meta property="og:title" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://cation-lang.org/banner.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+<meta property="og:description" content="Cation Standard Library">
+<meta property="og:site_name" content="Cation Language">
+
+<meta name="twitter:site" content="@lnp_bp">
+
+</head>
+
+<body>
+<nav>
+  <a id="logo" href="/">
+    <img alt="Logo" src="/logo/cation.svg">
+  </a>
+  <ol>
+    <li><a href="/">Cation Language</a></li>
+    
+    
+    
+    
+
+  </ol>
+
+  <ul>
+    <li><a href="/overview">Overview</a></li>
+    <li class="div">|</li>
+    <li><a href="/design">Design</a></li>
+    <li class="div">|</li>
+    <li><a href="/reference">Reference</a></li>
+    <li class="div">|</li>
+    <li><a href="/examples">Examples</a></li>
+    <!-- li class="div">|</li>
+    <li><a href="/try">Try</a></li -->
+    <!-- li class="div">|</li>
+    <li><a href="/community">Community</a></li -->
+  </ul>
+</nav>
+
+<main>
+  
+
+    <nav>
+        <ol>
+            
+            
+            <li>
+                <a href="https://cation-lang.org/stdlib/#type-classes">Type classes</a>
+                
+            </li>
+            
+            <li>
+                <a href="https://cation-lang.org/stdlib/#monads">Monads</a>
+                
+            </li>
+            
+        </ol>
+    </nav>
+
+
+<article class="page">
+    <h1 id="cation-standard-library">Cation Standard Library</h1>
+<h2 id="type-classes">Type classes</h2>
+<ul>
+<li>
+<p><code>num</code></p>
+</li>
+<li>
+<p><code>int</code></p>
+</li>
+<li>
+<p><code>unsigned</code></p>
+</li>
+<li>
+<p><code>signed</code></p>
+</li>
+<li>
+<p><code>nonzero</code></p>
+</li>
+<li>
+<p><code>float</code></p>
+</li>
+<li>
+<p><code>chr</code></p>
+</li>
+<li>
+<p><code>str</code></p>
+</li>
+<li>
+<p><code>ascii</code></p>
+</li>
+<li>
+<p><code>unicode</code></p>
+</li>
+<li>
+<p><code>pord</code></p>
+</li>
+<li>
+<p><code>ord</code></p>
+</li>
+<li>
+<p><code>eqcls</code></p>
+</li>
+<li>
+<p><code>eq</code></p>
+</li>
+<li>
+<p><code>debug</code></p>
+</li>
+<li>
+<p><code>display</code></p>
+</li>
+<li>
+<p><code>parse</code></p>
+</li>
+<li>
+<p><code>error</code></p>
+</li>
+<li>
+<p><code>prod</code></p>
+</li>
+<li>
+<p><code>coprod</code></p>
+</li>
+<li>
+<p><code>iter</code></p>
+</li>
+<li>
+<p><code>try</code></p>
+</li>
+<li>
+<p><code>read</code></p>
+</li>
+<li>
+<p><code>write</code></p>
+</li>
+</ul>
+<h2 id="monads">Monads</h2>
+<pre data-lang="idris" style="background-color:#2b303b;color:#c0c5ce;" class="language-idris "><code class="language-idris" data-lang="idris"><span>data Maybe: T =&gt; none | some(T)
+</span><span>
+</span><span>data Result: T, E =&gt; err(E) | ok(T)
+</span><span>
+</span><span>data Either: L, R =&gt; left(L) | right(R)
+</span><span>
+</span><span>data Tern: N, P =&gt; neg(N)#0xff | zero#0 | pos(p)#1
+</span><span>
+</span><span>data MayError: R, E =&gt; ok T, err Maybe E
+</span><span>
+</span><span>fx map: T, U, F: T -&gt; U =&gt; Maybe T, F -&gt; Maybe U
+</span><span>   none, _ =&gt; none
+</span><span>   some(val), f =&gt; some(f val)
+</span><span>
+</span><span>infx `=?=`: T eq =&gt; _ Maybe T, _ Maybe T -&gt; Bool
+</span><span>    none, none =&gt; true
+</span><span>    some(_), none | none, some(_) =&gt; false
+</span><span>    some(v), some(w) =&gt; v =?= w
+</span><span>
+</span><span>impl eq: T eq =&gt; Maybe T
+</span></code></pre>
+
+</article>
+
+</main>
+
+<footer>
+  <p>
+    Created &amp; maintained by <a href="https://www.ubideco.org">UBIDECO Labs</a><br/>
+    See a bug? <a href="https://github.com/cation-lang/cation-lang.org/issues/new">File an issue!</a>
+  </p>
+  <div>
+    <a href="https://x.com/lnp_bp"><img src="/social/twitter.svg" alt="twitter logo" title="Twitter, officially known as X"></a>
+    <a href="https://t.me/cation_lang"><img src="/social/telegram.svg" alt="telegram logo" title="Telegram"></a>
+    <a href="https://github.com/cation-lang/cation-lang"><img src="/social/github.svg" alt="github logo" title="GitHub"></a>
+  </div>
+  <p>We do not use cookies or any other tracking technology on visitors to this site</p>
+</footer>
+
+</body>
+</html>
